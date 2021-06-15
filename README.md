@@ -1,10 +1,12 @@
 # GabsVuetifyNoCLINodeWebpack
 
 **Vue SPA without CLI, Node and Webpack**
+
 This is a single-page application that uses Vue and Vue Router with a beautiful Material UI from Vuetify. It uses ES6 imports to render components and templates. No Node is required. Just git clone and serve statically.
 
 You can also select "Use this Template" in order to create a new single-page application that you can build upon. You can write code in any environment that has a static web-server. There are [virtually] no dependencies. It uses CDN-hosted libraries.
-**Demo**: https://hubert17.github.io/GabsVuetifyNoCLINode
+
+**Demo**: https://hubert17.github.io/GabsVuetifyNoCLINodeWebpack
 
 ## Install these [VSCode Extensions](https://marketplace.visualstudio.com/vscode) for best experience:
 
