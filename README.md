@@ -22,7 +22,7 @@ You can also select "Use this Template" in order to create a new single-page app
 - Webpack can potentially require a lot of configuration and is not beginner friendly.
 - Read more [here](https://github.com/charlesfranciscodev/vuejs-playground) and [here](https://github.com/arswaw/VueSpaNONODE).
 
-## How about the Component-based CSS?
+## What about the Component-based CSS?
 
 [goober](https://github.com/cristianbote/goober), a less than 1KB css-in-js solution, solves the problem.
 
