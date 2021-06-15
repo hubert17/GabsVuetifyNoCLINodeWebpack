@@ -2,7 +2,7 @@ import router from './router.js'
 
 export default {
   name: 'App',
-
+  props: ["user"],
   data: () => ({
     drawer: false,
     appName: "Gabs Vue App",
@@ -18,8 +18,10 @@ export default {
     },
     gotoRoute(routeName) {
       router.push({ path: routeName });
-
     },
+    logout() {
+      this.$root.$emit("user", null);
+    }
   },
   mounted() {
 
@@ -61,8 +63,6 @@ export default {
       </v-list-group>
 
       </v-list-item-group>
-
-
 
       <!-- Mobile only Menu items  -->
       <v-list-item active-class="blue-grey darken-0" class="hidden-sm-and-up">
@@ -122,7 +122,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">Username</span>
+                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">{{user.username}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
@@ -132,7 +132,7 @@ export default {
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click.prevent="">
+                  <v-list-item @click.prevent="logout">
                       <v-icon class="mr-2">exit_to_app</v-icon>
                     <v-list-item-title>Logout</v-list-item-title>
                   </v-list-item>
@@ -149,7 +149,7 @@ export default {
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click.prevent="">
+                  <v-list-item @click.prevent="logout">
                       <v-icon class="mr-2">exit_to_app</v-icon>
                     <v-list-item-title>Logout</v-list-item-title>
                   </v-list-item>

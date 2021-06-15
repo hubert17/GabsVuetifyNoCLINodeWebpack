@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 const routes = [
     { title: "Home", icon: "home", path: "/", component: homepage },
-    { title: "Settings", icon: "settings", path: "/settings", component: settings },
+    { title: "Settings", icon: "settings", path: "/settings", component: settings},
     { title: "Help", icon: "help_outline", path: "/help", component: help },
   ];
 
