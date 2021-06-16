@@ -13,19 +13,17 @@ export default {
         login() {
             this.loading = true;
 
-            setTimeout(() => {
-                console.log('Simulating a 2-second delay...')
-                axios.get("data/fakeusers.json").then((response) => {
-                    let users = response.data;
-                    let user = users.find((x) => x.username == this.user.username && x.password === this.user.password);
-                    if(user) {
-                        this.$root.$emit("user", user);
-                    } else {
-                        this.snackbar.show = true;
-                        this.snackbar.text = "Invalid username and/or password."
-                    }
-                });
-            }, 2000);
+            axios.get("data/fakeusers.json").then((response) => {
+                let users = response.data;
+                let user = users.find((x) => x.username == this.user.username && x.password === this.user.password);
+                if(user) {
+                    this.$root.$emit("user", user);
+                } else {
+                    this.snackbar.show = true;
+                    this.snackbar.text = "Invalid username and/or password."
+                }
+            });
+
         },
     },
 

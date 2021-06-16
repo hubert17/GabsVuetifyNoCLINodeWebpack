@@ -1,17 +1,24 @@
 import router from './router.js'
+import SideInfoPanel from './components/SideInfoPanel.js'
 
 export default {
   name: 'App',
   props: ["user"],
   data: () => ({
-    drawer: false,
+    drawer: true,
     appName: "Gabs Vue App",
+    showSideInfo: true,
     learnings: [
       { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
       { title: 'Vuetify', link:'https://vuetifyjs.com/en/introduction/why-vuetify/' },
       { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINode' },
     ]
   }),
+  watch: {
+    '$route' (to, from) {
+      this.showSideInfo = to.path === "/"
+    }
+  },
   methods: {
     clickToggleDrawer: function () {
       this.drawer = !this.drawer;
@@ -23,14 +30,12 @@ export default {
       this.$root.$emit("user", null);
     }
   },
-  mounted() {
-
-  },
   computed: {
     routes() {
       return this.$router.options.routes;
     }
   },
+  components: { SideInfoPanel },
   template: /*html*/ `
 <div>
 
@@ -83,6 +88,11 @@ export default {
       </v-list-item>
 
     </v-list>
+
+    <SideInfoPanel v-if="showSideInfo"
+      TitleHeader="Title" TitleText="Some Title"
+      DetailHeader="Detail" DetailText="Some a bit long detail here"
+      StatusHeader="Status" StatusText="Some Status" />
 
   </v-navigation-drawer>
 
