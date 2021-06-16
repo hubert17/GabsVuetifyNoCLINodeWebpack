@@ -21,6 +21,7 @@ export default {
   },
   methods: {
     clickToggleDrawer: function () {
+      if(this.showSideInfo) return;
       this.drawer = !this.drawer;
     },
     gotoRoute(routeName) {
