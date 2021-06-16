@@ -19,8 +19,8 @@ You can also select "Use this Template" in order to create a new single-page app
 
 - It reduces the learning curve required to start using Vue.js.
 - Because JavaScript lacks a standard library, a project with npm usually has a lot of dependencies. This increases the project's size and complexity. See this [article](https://hackernoon.com/whats-really-wrong-with-node-modules-and-why-this-is-your-fault-8ac9fa893823) for more info.
-- But if we do not use npm, how do we install additional libraries? They can simply be downloaded from a CDN and imported using HTML `<script>` tags. For example, in this project I used Material Design Webfont and Vuetify with this method. This can be an issue if there is alot of dependencies as importing each library separetely with `<script>` tags is slow to load and creates a lot of variables in the global scope. Also, each dependency has to be imported in the correct order. Webpack might be needed in that case.
-- Babel is useful for converting ES6 JavaScript into backwards compatible code. But, in my case this is not needed as the web browsers of my clients all support ES6 (lucky me).
+- But if we do not use npm, how do we install additional libraries? They can simply be downloaded from a CDN and imported using HTML `<script>` tags. For example, in this project I used Material Design Webfont and Vuetify with this method. This can be an issue if there is alot of dependencies as importing each library separately with `<script>` tags is slow to load and creates a lot of variables in the global scope. Also, each dependency has to be imported in the correct order. (Read Waterfall-loading below)
+- Babel is useful for converting ES6 JavaScript into backwards compatible code. But, in my case this is not needed as the web browsers of my clients (most modern browsers) all support ES6.
 - Webpack can potentially require a lot of configuration and is not beginner friendly.
 - Read more [here](https://github.com/charlesfranciscodev/vuejs-playground) and [here](https://github.com/arswaw/VueSpaNONODE).
 
