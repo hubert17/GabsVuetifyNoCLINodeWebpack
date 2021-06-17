@@ -1,5 +1,5 @@
 import router from './router.js'
-import store from '../store.js'
+import store from './store.js'
 import AppMain from './app.js'
 import Login from './components/Login.js'
 
