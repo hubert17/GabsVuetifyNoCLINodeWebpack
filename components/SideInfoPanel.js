@@ -13,7 +13,7 @@ export default {
     props: ["TitleHeader","TitleText", "DetailHeader", "DetailText" , "StatusHeader" , "StatusText", "OtherHeader", "OtherText"],
     data() {
       return {
-        showSideInfoInRoute: "/",
+
       };
     },
 
@@ -37,7 +37,11 @@ export default {
                 <p v-if="DetailHeader" class="amber--text text--darken-4 font-weight-light py-0 my-0">{{DetailHeader}}</p>
                 <p v-if="DetailHeader" class="title mb-2">{{DetailText}}</p>
                 <p v-if="StatusHeader" class="amber--text text--darken-4 font-weight-light py-0 my-0">{{StatusHeader}}</p>
-                <p v-if="StatusHeader" class="mb-3" style="font-size:medium;font-weight: bold;letter-spacing:1px"><span>{{StatusText}}</span></p>
+                <p v-if="StatusHeader" class="mb-3" style="font-size:medium;font-weight: bold;letter-spacing:1px">
+                  <span style="padding-left:3px; padding-right: 3px;display:inline;-moz-box-decoration-break:clone;
+                      -webkit-box-decoration-break:clone;box-decoration-break:clone;">{{StatusText}}
+                  </span>
+                </p>
                 <p v-if="OtherHeader" class="amber--text text--darken-4 font-weight-light pb-0 my-0">{{OtherHeader}}</p>
                 <p v-if="OtherHeader" class="font-weight-light mb-2">{{OtherText}}</p>
               </div>

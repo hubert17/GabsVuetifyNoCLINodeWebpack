@@ -1,29 +1,33 @@
+import store from '../store.js'
+
 export default {
     name: 'AppLogin',
 
     data() {
       return {
-        user: {username: 'gabs17', password: 'bern123'},
+        login: {username: 'admin', password: 'admin'},
         loading: false,
         snackbar: {show: false, text: ''},
       };
     },
 
     methods: {
-        login() {
+        getToken() {
             this.loading = true;
-
-            axios.get("data/fakeusers.json").then((response) => {
-                let users = response.data;
-                let user = users.find((x) => x.username == this.user.username && x.password === this.user.password);
-                if(user) {
-                    this.$root.$emit("user", user);
-                } else {
-                    this.snackbar.show = true;
+            axios.post(this.appConfig.apiBaseUrl + "/TOKEN?username=" + this.login.username + "&password=" + this.login.password, this.authHeader)
+                .then((response) => {
+                    let user = response.data;
+                    if (user && user.token) {
+                        store.commit("setUser", user);
+                        console.log("Authentication OK. ");
+                    } else throw {}
+                }).catch((err) => {
+                    console.log(err.message); //error.response.data.message.text
+                    this.loading = false;
                     this.snackbar.text = "Invalid username and/or password."
-                }
-            });
-
+                    this.snackbar.show = true;
+                    this.$refs.username.focus();
+                });
         },
     },
 
@@ -31,6 +35,12 @@ export default {
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundImage = "url(https://www.bing.com/th?id=OHR.FinlandBrownBear_ROW6208280659_1920x1080.jpg&rf=LaDigue_1920x1080.jpg)";
     },
+
+    computed: {
+        appConfig: function () {
+          return store.getters.appConfig;
+        }
+      },
 
     template: /*html*/ `
 
@@ -54,10 +64,10 @@ export default {
                     </v-toolbar>
 
                     <v-card-text>
-                        <v-form @keyup.enter.native="login">
-                            <v-text-field v-model="user.username" prepend-icon="person" name="login" label="Username" type="text" ref="username"></v-text-field>
-                            <v-text-field v-model="user.password" prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
-                            <v-btn color="blue-grey white--text" :loading="loading" block="block" @click.prevent="login" type="button" :disabled="loading">Sign in</v-btn>
+                        <v-form @keyup.enter.native="getToken">
+                            <v-text-field type="text" v-model="login.username" prepend-icon="person" label="Username" ref="username"></v-text-field>
+                            <v-text-field type="password" v-model="login.password" prepend-icon="lock" label="Password"></v-text-field>
+                            <v-btn color="blue-grey white--text" :loading="loading" block="block" @click.prevent="getToken" type="button" :disabled="loading">Sign in</v-btn>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>

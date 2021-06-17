@@ -14,7 +14,7 @@ You can also select "Use this Template" in order to create a new single-page app
 - [Template Literal Editor](https://marketplace.visualstudio.com/items?itemName=plievone.vscode-template-literal-editor)
 - [Comment tagged templates](https://marketplace.visualstudio.com/items?itemName=bierner.comment-tagged-templates)
 - [Trailing Spaces](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
-- [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools)
+- [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)
 
 ## Why I try to avoid using CLI, npm, webpack and other build process?
 

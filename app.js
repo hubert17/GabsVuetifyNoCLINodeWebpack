@@ -1,17 +1,15 @@
 import router from './router.js'
+import store from './store.js'
 import SideInfoPanel from './components/SideInfoPanel.js'
 
 export default {
   name: 'App',
-  props: ["user"],
   data: () => ({
-    drawer: true,
-    appName: "Gabs Vue App",
     showSideInfo: true,
     learnings: [
       { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
       { title: 'Vuetify', link:'https://vuetifyjs.com/en/introduction/why-vuetify/' },
-      { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINode' },
+      { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
     ]
   }),
   watch: {
@@ -22,18 +20,33 @@ export default {
   methods: {
     clickToggleDrawer: function () {
       if(this.showSideInfo) return;
-      this.drawer = !this.drawer;
+      store.commit("appDrawer", !this.drawer);
     },
     gotoRoute(routeName) {
-      router.push({ path: routeName });
+      router.push({ path: routeName }).catch(() => {});
     },
     logout() {
-      this.$root.$emit("user", null);
+      store.commit("setUser", null);
+      router.push({ path: "/" }).catch(() => {});
     }
   },
   computed: {
     routes() {
       return this.$router.options.routes;
+    },
+    appConfig() {
+      return store.getters.appConfig;
+    },
+    user() {
+      return store.getters.user;
+    },
+    drawer: {
+      get() {
+        return store.getters.appDrawer
+      },
+      set(val) {
+        return val;
+      }
     }
   },
   components: { SideInfoPanel },
@@ -43,7 +56,7 @@ export default {
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
 
     <v-list nav dark class="blue-grey lighten-1">
-      <v-subheader class="hidden-sm-and-up">{{appName}}</v-subheader>
+      <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
 
       <v-list-item-group>
         <v-list-item v-for="(menu, i) in routes"  :key="i" :to="menu.path" active-class="blue-grey darken-0" >
@@ -100,7 +113,7 @@ export default {
   <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue-grey" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
-        <v-toolbar-title>{{appName}}</v-toolbar-title>
+        <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -133,7 +146,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">{{user.username}}</span>
+                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">{{user.userName}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
