@@ -39,7 +39,9 @@ export default {
       return store.getters.appConfig;
     },
     user() {
-      return store.getters.user;
+      let u = store.getters.user;
+      if(!u) u = {userName :"offline user"}
+      return u;
     },
     drawer: {
       get() {

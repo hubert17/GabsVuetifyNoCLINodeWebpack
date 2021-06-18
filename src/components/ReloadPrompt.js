@@ -1,4 +1,4 @@
-import { useRegisterSW } from 'virtual:pwa-register/vue'
+import useRegisterSW from "../mixins/useRegisterSW";
 import { css } from 'https://cdn.jsdelivr.net/npm/goober@2.0.33/dist/goober.modern.js';
 
 const styles = css /*css*/ `
@@ -27,18 +27,12 @@ const styles = css /*css*/ `
 
 `
 
-const [offlineReady,
-    needRefresh,
-    updateServiceWorker,] = useRegisterSW();
-
-
 export default {
-    name: 'BaseButton',
+    name: "ReloadPrompt",
+    mixins: [useRegisterSW],
 
     data() {
-      return {
-        count: 0,
-      };
+
     },
 
     methods: {
@@ -50,28 +44,22 @@ export default {
 
     template: /*html*/ `
 
-      <div class=${styles}>
-        <div
-        v-if="offlineReady || needRefresh"
-        class="pwa-toast"
-        role="alert"
-    >
-        <div class="message">
-        <span v-if="offlineReady">
-            App ready to work offline
-        </span>
-        <span v-else>
-            New content available, click on reload button to update.
-        </span>
-        </div>
-        <button v-if="needRefresh" @click="updateServiceWorker()">
-        Reload
-        </button>
-        <button @click="close">
-        Close
-        </button>
+      <div class=${styles} v-if="offlineReady || needRefresh" class="pwa-toast" role="alert" >
+    <div class="message">
+      <span v-if="offlineReady">
+        App ready to work offline
+      </span>
+      <span v-else>
+        New content available, click on reload button to update.
+      </span>
     </div>
-      </div>
+    <button v-if="needRefresh" @click="updateServiceWorker">
+      Reload
+    </button>
+    <button @click="closePrompt">
+      Close
+    </button>
+  </div>
 
     `,
   };

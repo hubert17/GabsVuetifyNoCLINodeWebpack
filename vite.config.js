@@ -6,19 +6,35 @@ module.exports = {
     base: '',
 	plugins: [
         createVuePlugin(),
-        VitePWA({
-            mode: 'development',
+          VitePWA({
+            // for prompt comment the option or just remove this option, since it is the default behavior */
             base: '/',
             registerType: 'autoUpdate',
+            includeAssets: ['/favicon.svg'],
             manifest: {
-                // content of manifest
-              },
-              workbox: {
-                // workbox options for generateSW
-              }
-          }),
-          replace({
-            __DATE__: new Date().toISOString(),
-          }),
+              name: 'PWA Vue2',
+              short_name: 'PWA Vue2',
+              description: 'Vite PWA + Vue2 + Vite',
+              theme_color: '#ffffff',
+              icons: [
+                {
+                  src: '/pwa-192x192.png',
+                  sizes: '192x192',
+                  type: 'image/png',
+                },
+                {
+                  src: '/pwa-512x512.png',
+                  sizes: '512x512',
+                  type: 'image/png',
+                },
+                {
+                  src: '/pwa-512x512.png',
+                  sizes: '512x512',
+                  type: 'image/png',
+                  purpose: 'any maskable',
+                },
+              ],
+            }
+          })
     ],
 };
