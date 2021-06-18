@@ -1,8 +1,13 @@
 name: Build and Deploy
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the development branch
   push:
     branches:
-      - main
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -16,9 +21,10 @@ jobs:
           npm install
           npm install vite @vitejs/plugin-vue
           npm install vite-plugin-vue2
+          npm run build          
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          branch: main # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.        
