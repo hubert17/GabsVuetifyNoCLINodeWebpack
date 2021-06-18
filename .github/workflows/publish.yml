@@ -28,3 +28,10 @@ jobs:
         with:
           branch: main # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
+          
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
