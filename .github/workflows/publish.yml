@@ -21,6 +21,7 @@ jobs:
           npm install
           npm install vite @vitejs/plugin-vue
           npm install vite-plugin-vue2
+          npm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
