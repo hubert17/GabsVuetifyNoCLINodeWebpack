@@ -1,6 +1,7 @@
 import router from './router.js'
 import store from './store.js'
 import SideInfoPanel from './components/SideInfoPanel.js'
+import ReloadPrompt from './components/ReloadPrompt.js'
 
 export default {
   name: 'App',
@@ -49,10 +50,10 @@ export default {
       }
     }
   },
-  components: { SideInfoPanel },
+  components: { SideInfoPanel},
   template: /*html*/ `
 <div>
-
+  <!-- <ReloadPrompt /> -->
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
 
     <v-list nav dark class="blue-grey lighten-1">
