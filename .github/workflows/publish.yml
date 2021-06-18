@@ -1,7 +1,7 @@
 name: Build and Deploy
 on:
   # Trigger the workflow on push or pull request,
-  # but only for the development branch
+  # but only for the master branch
   push:
     branches:
       - master
@@ -19,15 +19,7 @@ jobs:
         uses: datamonsters/replace-action@master
         with:
           files: 'index.html'
-          replacements: 'dist/vue.js=dist/vue.min.js,vuetify.js=vuetify.min.js,vue-router.js=vue-router.min.js,vuex.js=vuex.min.js'        
-        
-#       - name: Update CDN to minified version
-#         uses: jacobtomlinson/gha-find-replace@master
-#         with:
-#           find: "dist/vue.js"
-#           replace: "dist/vue.min.js"
-#           include: index.html
-          
+          replacements: 'dist/vue.js=dist/vue.min.js,vuetify.js=vuetify.min.js,vue-router.js=vue-router.min.js,vuex.js=vuex.min.js'                        
 
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
