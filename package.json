@@ -5,6 +5,9 @@
     "build": "vite build",
     "serve": "vite preview"
   },
+  "dependencies": {
+    "vite-plugin-vue2": "^1.6.2"
+  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",
     "vite": "^2.3.7"
