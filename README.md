@@ -82,7 +82,7 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 
 5. `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
 
-Please note that these changes does not affect our primary goal of developing Vue spa without CLI, Node or Webpack, and can still be serve without build processes.
+Please note that these changes do not affect our primary goal of developing Vue spa without CLI, Node or Webpack, and can still be serve without build processes.
 
 ## Contributor
 
