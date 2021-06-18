@@ -35,7 +35,7 @@ One problem with using JavaScript Modules without a bundler is waterfall-loading
 
 ## Production Build with Vite
 The aim of this project is to quickly develop single page app without any compilation or build step.
-However, for production, I recommend to use Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. Reconfigure the project with the following steps:
+However, for production, I recommend to use Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. Reconfigure the project by following these steps:
 
  1.  Create `src` folder.
  2.  Move the following to `src` folder:
@@ -55,7 +55,6 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
     `npm install`
     `npm install vite @vitejs/plugin-vue`
     `npm install vite-plugin-vue2`
-    `npm install vue@2`
 
 > Create this file: **package.json**
 
@@ -77,10 +76,13 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
     const { createVuePlugin } = require('vite-plugin-vue2');
 
     module.exports = {
-		plugins: [createVuePlugin()]
+		plugins: [createVuePlugin()],
+		base:  ''
     };
 
 5. `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
+
+Please note that these changes does not affect our primary goal of developing Vue spa without CLI, Node or Webpack, and can still be serve without build processes.
 
 ## Contributor
 
