@@ -52,8 +52,11 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
         <script src="/src/main.js" type="module"></script>
 
 4. Run the following command:
+
     `npm install`
+
     `npm install vite @vitejs/plugin-vue`
+
     `npm install vite-plugin-vue2`
 
 > Create this file: **package.json**
@@ -61,13 +64,16 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
     {
         "version": "0.0.0",
         "scripts": {
-    	    "dev": "vite",
-    	    "build": "vite build",
-    	    "serve": "vite preview"
+            "dev": "vite",
+            "build": "vite build",
+            "serve": "vite preview"
+        },
+        "dependencies": {
+            "vite-plugin-vue2": "^1.6.2"
         },
         "devDependencies": {
-    	    "@vitejs/plugin-vue": "^1.2.3",
-    	    "vite": "^2.3.7"
+            "@vitejs/plugin-vue": "^1.2.3",
+            "vite": "^2.3.7"
         }
     }
 
