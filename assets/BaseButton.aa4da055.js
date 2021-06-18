@@ -1,0 +1,1 @@
+var n={name:"BaseButton",data:()=>({count:0}),template:'\n\n    <div>\n      Count: {{ count }}\n      <v-btn color="primary" @click="count += 1">\n        +1\n      </v-btn>\n    </div>\n\n  '};export default n;
