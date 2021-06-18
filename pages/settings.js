@@ -1,5 +1,3 @@
-import BaseButton from '../components/BaseButton.js'
-
 export default {
     name: 'Settings',
 
@@ -10,7 +8,7 @@ export default {
     },
 
     components: {
-        BaseButton
+        BaseButton: () => import('../components/BaseButton.js'),
     },
 
     template: /*html*/ `

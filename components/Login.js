@@ -5,7 +5,7 @@ export default {
 
     data() {
       return {
-        login: {username: 'admin', password: 'admin'},
+        login: {username: 'admin', password: 'admin123'},
         loading: false,
         snackbar: {show: false, text: ''},
       };

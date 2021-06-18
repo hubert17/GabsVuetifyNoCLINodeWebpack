@@ -7,7 +7,7 @@ const store = new Vuex.Store({
     appConfig: {
         name: "Gabs Vue App",
         baseUrl: "",
-        apiBaseUrl: "https://api45.bernardgabon.com",
+        apiBaseUrl: "https://api45gabs.azurewebsites.net",
         imgBaseUrl: "",
     },
     authHeader: {
