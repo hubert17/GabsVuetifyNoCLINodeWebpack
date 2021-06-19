@@ -6,12 +6,11 @@ module.exports = {
 	plugins: [
         createVuePlugin(),
           VitePWA({
-            base: '/GabsVuetifyNoCLINodeWebpack/',
+            base: 'GabsVuetifyNoCLINodeWebpack/',
             // for prompt comment the option or just remove this option, since it is the default behavior */
             registerType: 'prompt',
             includeAssets: ['/favicon.svg'],
             manifest: {
-              start_url: '/GabsVuetifyNoCLINodeWebpack/',
               name: 'Gabs Vue App PWA',
               short_name: 'Gabs Vue',
               description: 'Gabs Vue App + Vite + Vite PWA ',
