@@ -6,7 +6,7 @@ module.exports = {
 	  plugins: [
         createVuePlugin(),
           VitePWA({
-            base: '',
+            base: '/GabsVuetifyNoCLINodeWebpack/',
             // for prompt comment the option or just remove this option, since it is the default behavior */
             registerType: 'prompt',
             includeAssets: ['/favicon.svg'],
