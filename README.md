@@ -33,31 +33,34 @@ You can also select "Use this Template" in order to create a new single-page app
 
 One problem with using JavaScript Modules without a bundler is waterfall-loading. Main.js imports app.js and app.js imports BaseButton.js. So the browser needs to load the files in this order before it can mount our little Vue application. But we can speed this up by using [modulepreload](https://developers.google.com/web/updates/2017/12/) links. The preload links tell the browser to load all necessary files, which prevents waterfall-loading. Read more [here](https://markus.oberlehner.net/blog/goodbye-webpack-building-vue-applications-without-webpack/).
 
-## Production Build with Vite
+## Production Build with Vite (with PWA support)
+
 The aim of this project is to quickly develop single page app without any compilation or build step.
 However, for production, I recommend to use Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. Reconfigure the project by following these steps:
 
- 1.  Create `src` folder.
- 2.  Move the following to `src` folder:
+1.  Create `src` folder.
+2.  Move the following to `src` folder:
 
-> 	- *components*
-> 	- *pages*
-> 	- *app.js*
-> 	- *main.js*
-> 	- *router.js*
-> 	- *store.js*
+>     - *components*
+>     - *pages*
+>     - *app.js*
+>     - *main.js*
+>     - *router.js*
+>     - *store.js*
 
-3. Update index.html script src. Notice the added preceding slash. You may now remove those `modulepreload` as you no longer need it. Use the minified version of CDN packages by simply inserting `.min` ex: `vue.min.js`.
+3.  Update index.html script src. Notice the added preceding slash. You may now remove those `modulepreload` as you no longer need it. Use the minified version of CDN packages by simply inserting `.min` ex: `vue.min.js`.
 
         <script src="/src/main.js" type="module"></script>
 
-4. Run the following command:
+4.  Run the following command:
 
     `npm install`
 
     `npm install vite @vitejs/plugin-vue`
 
     `npm install vite-plugin-vue2`
+
+    `npm i vite-plugin-pwa -D`
 
 > Create this file: **package.json**
 
@@ -77,13 +80,13 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
         }
     }
 
-> Create this file:  **vite.config.js**
+> Create this file: **vite.config.js**
 
     const { createVuePlugin } = require('vite-plugin-vue2');
 
     module.exports = {
-		plugins: [createVuePlugin()],
-		base:  ''
+    	plugins: [createVuePlugin()],
+    	base:  ''
     };
 
 5. `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
