@@ -35,16 +35,14 @@ export default {
 
     },
 
-    methods: {
-        close() {
-            offlineReady.value = false
-            needRefresh.value = false
-        }
-    },
-
     template: /*html*/ `
 
-      <div class=${styles} v-if="offlineReady || needRefresh" class="pwa-toast" role="alert" >
+<div class=${styles}>
+    <div
+      v-if="offlineReady || needRefresh"
+      class="pwa-toast"
+      role="alert"
+  >
     <div class="message">
       <span v-if="offlineReady">
         App ready to work offline
@@ -60,6 +58,8 @@ export default {
       Close
     </button>
   </div>
+</div>
+
 
     `,
   };

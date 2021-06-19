@@ -8,8 +8,8 @@ module.exports = {
         createVuePlugin(),
           VitePWA({
             // for prompt comment the option or just remove this option, since it is the default behavior */
-            base: '/',
-            registerType: 'autoUpdate',
+            base: '',
+            registerType: 'prompt',
             includeAssets: ['/favicon.svg'],
             manifest: {
               name: 'PWA Vue2',
