@@ -27,6 +27,7 @@ jobs:
           npm install
           npm install vite @vitejs/plugin-vue
           npm install vite-plugin-vue2
+          npm install vite-plugin-pwa -D
           npm run build          
 
       - name: Deploy 🚀
