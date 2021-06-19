@@ -11,11 +11,11 @@ const routes = [
   ];
 
 const router = new VueRouter({
-    base: '/',
+    base: document.querySelector('#app').getAttribute('data-path') || '/',
     mode: 'history', // real path
     routes, // short for `routes: routes`
   });
-  
+
   /*
   comment out these callback if you want to use `prompt`
   */
@@ -23,5 +23,5 @@ const router = new VueRouter({
     const { registerSW } = await import("virtual:pwa-register")
     registerSW({ immediate: true })
   })
-  
+
   export default router;
