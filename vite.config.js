@@ -1,20 +1,19 @@
 const { createVuePlugin } = require('vite-plugin-vue2');
 import { VitePWA } from 'vite-plugin-pwa'
-import replace from '@rollup/plugin-replace'
 
 module.exports = {
     base: '',
 	plugins: [
         createVuePlugin(),
           VitePWA({
-            // for prompt comment the option or just remove this option, since it is the default behavior */
             base: '',
+            // for prompt comment the option or just remove this option, since it is the default behavior */
             registerType: 'prompt',
             includeAssets: ['/favicon.svg'],
             manifest: {
-              name: 'PWA Vue2',
-              short_name: 'PWA Vue2',
-              description: 'Vite PWA + Vue2 + Vite',
+              name: 'Gabs Vue App PWA',
+              short_name: 'Gabs Vue',
+              description: 'Gabs Vue App + Vite + Vite PWA ',
               theme_color: '#ffffff',
               icons: [
                 {

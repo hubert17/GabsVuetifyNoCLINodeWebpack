@@ -1,10 +1,12 @@
 export default {
   name: "useRegisterSW",
-  data: () => ({
-    updateSW: undefined,
-    offlineReady: false,
-    needRefresh: false,
-  }),
+  data() {
+    return {
+      updateSW: undefined,
+      offlineReady: false,
+      needRefresh: false,
+    }
+  },
   async mounted() {
     const { registerSW } = await import("virtual:pwa-register")
     const vm = this;

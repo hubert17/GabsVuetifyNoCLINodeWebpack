@@ -2,7 +2,6 @@ import store from '../store.js'
 
 export default {
     name: 'AppLogin',
-
     data() {
       return {
         login: {username: 'admin', password: 'admin123'},
