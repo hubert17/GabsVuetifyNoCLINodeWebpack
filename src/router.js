@@ -11,7 +11,7 @@ const routes = [
   ];
 
 const router = new VueRouter({
-    //base:'/',
+    base:'/GabsVuetifyNoCLINodeWebpack',
     mode: 'history', // real path
     routes, // short for `routes: routes`
   });
