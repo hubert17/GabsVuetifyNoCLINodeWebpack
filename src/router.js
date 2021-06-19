@@ -11,7 +11,7 @@ const routes = [
   ];
 
 const router = new VueRouter({
-    base: document.querySelector('#app').getAttribute('data-path') || '/',
+    base: window.location.pathName,
     mode: 'history', // real path
     routes, // short for `routes: routes`
   });
