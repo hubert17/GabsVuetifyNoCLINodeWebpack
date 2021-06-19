@@ -2,7 +2,7 @@ const { createVuePlugin } = require('vite-plugin-vue2');
 import { VitePWA } from 'vite-plugin-pwa'
 
 module.exports = {
-    base: '',
+    base: '/GabsVuetifyNoCLINodeWebpack/',
 	  plugins: [
         createVuePlugin(),
           VitePWA({
