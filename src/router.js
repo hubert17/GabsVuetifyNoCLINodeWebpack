@@ -10,9 +10,18 @@ const routes = [
     { title: "Help", icon: "help_outline", path: "/help", component: help },
   ];
 
-  let router = new VueRouter({
-    // mode: 'history', // real path
+const router = new VueRouter({
+    base: '/',
+    mode: 'history', // real path
     routes, // short for `routes: routes`
   });
-
+  
+  /*
+  comment out these callback if you want to use `prompt`
+  */
+  router.onReady(async() => {
+    const { registerSW } = await import("virtual:pwa-register")
+    registerSW({ immediate: true })
+  })
+  
   export default router;
