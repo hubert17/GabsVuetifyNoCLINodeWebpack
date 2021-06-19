@@ -11,7 +11,7 @@ const routes = [
   ];
 
 const router = new VueRouter({
-    base:'/GabsVuetifyNoCLINodeWebpack',
+    base: window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")+1),
     mode: 'history', // real path
     routes, // short for `routes: routes`
   });
