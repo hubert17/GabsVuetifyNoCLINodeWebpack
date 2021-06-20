@@ -2,7 +2,7 @@ const { createVuePlugin } = require('vite-plugin-vue2');
 import { VitePWA } from 'vite-plugin-pwa'
 
 module.exports = {
-    base: '',
+    base: '/GabsVuetifyNoCLINodeWebpack/',
 	  plugins: [
         createVuePlugin(),
           VitePWA({
@@ -33,6 +33,66 @@ module.exports = {
                   purpose: 'any maskable',
                 },
               ],
+            },
+            workbox: {
+              runtimeCaching: [
+                {
+                  urlPattern: /^https:\/\/cdn\.vuetifyjs\.com\/.*/i,
+                  handler: 'CacheFirst',
+                  options: {
+                    cacheName: 'vuetifyjs-cache',
+                    expiration: {
+                      maxEntries: 10,
+                      maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+                    },
+                    cacheableResponse: {
+                      statuses: [0, 200],
+                    },
+                  },
+                },
+                {
+                  urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
+                  handler: 'CacheFirst',
+                  options: {
+                    cacheName: 'jsdelivr-cache',
+                    expiration: {
+                      maxEntries: 10,
+                      maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+                    },
+                    cacheableResponse: {
+                      statuses: [0, 200],
+                    },
+                  },
+                },
+                {
+                  urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+                  handler: 'CacheFirst',
+                  options: {
+                    cacheName: 'google-fonts-cache',
+                    expiration: {
+                      maxEntries: 10,
+                      maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+                    },
+                    cacheableResponse: {
+                      statuses: [0, 200],
+                    },
+                  },
+                },
+                {
+                  urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+                  handler: 'CacheFirst',
+                  options: {
+                    cacheName: 'gstatic-fonts-cache',
+                    expiration: {
+                      maxEntries: 10,
+                      maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+                    },
+                    cacheableResponse: {
+                      statuses: [0, 200],
+                    },
+                  },
+                },
+              ]
             }
           })
     ],
