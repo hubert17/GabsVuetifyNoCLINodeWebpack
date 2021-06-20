@@ -59,6 +59,7 @@ const vueApp = new Vue({
   template: /*html*/ `
 
 <v-app :style="(!authorized ? 'background: rgba(0,0,0,0)' : '')">
+    <ReloadPrompt />
     <v-banner v-if="deferredPrompt" color="info" dark class="text-left">
         Get our free app. It won't take up space on your phone and also works offline!
         <template v-slot:actions>
@@ -69,7 +70,7 @@ const vueApp = new Vue({
     <app-main v-if="authorized"></app-main>
     <router-view v-if="authorized"></router-view>
     <Login v-if="!authorized" />
-    <ReloadPrompt />
+
 </v-app>
 
 `
