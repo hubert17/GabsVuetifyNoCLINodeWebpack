@@ -27,7 +27,7 @@ const styles = css /*css*/ `
 
 `
 
-const useRegisterSW = import("../mixins/useRegisterSW");
+const useRegisterSW = import("../mixins/useRegisterSW.js");
 
 export default {
   name: "ReloadPrompt",

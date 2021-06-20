@@ -2,9 +2,9 @@ import router from './router.js'
 import store from './store.js'
 import AppMain from './app.js'
 import Login from './components/Login.js'
-// import Cookies from "js-cookie";
+import useCookiePWA from './mixins/useCookiePWA.js'
 // import ReloadPrompt from './components/ReloadPrompt.js'
-const {Cookies} = import('js-cookie');
+//const {Cookies} = import('js-cookie');
 
 Vue.use(Vuetify);
 
@@ -12,32 +12,7 @@ const vueApp = new Vue({
   el: "#app",
   vuetify: new Vuetify(),
   router,
-  data: {
-    deferredPrompt: null
-  },
-  created() {
-    window.addEventListener("beforeinstallprompt", e => {
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      if (Cookies && Cookies.get("add-to-home-screen") === undefined) {
-        this.deferredPrompt = e;
-      }
-    });
-    window.addEventListener("appinstalled", () => {
-      this.deferredPrompt = null;
-    });
-  },
-  methods: {
-    async dismiss() {
-      if(Cookies) {
-        Cookies.set("add-to-home-screen", null, { expires: 15 });
-        this.deferredPrompt = null;
-      }
-    },
-    async install() {
-      this.deferredPrompt.prompt();
-    }
-  },
+  mixins: [useCookiePWA],
   components: { 'app-main' : AppMain, Login,
     ReloadPrompt: () => import('./components/ReloadPrompt.js')
   },
@@ -69,6 +44,9 @@ const vueApp = new Vue({
           <v-btn text @click="dismiss">Dismiss</v-btn>
           <v-btn text @click="install">Install</v-btn>
         </template>
+      </v-banner>
+      <v-banner v-else style="display:none;">
+        App installed.
       </v-banner>
     <app-main v-if="authorized"></app-main>
     <router-view v-if="authorized"></router-view>
