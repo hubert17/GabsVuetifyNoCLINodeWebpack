@@ -62,8 +62,6 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 
     `npm install vite-plugin-pwa -D`
 
-    `npm install js-cookie`
-
 > Create this file: **package.json**
 
     {
