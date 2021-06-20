@@ -2,8 +2,9 @@ import router from './router.js'
 import store from './store.js'
 import AppMain from './app.js'
 import Login from './components/Login.js'
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 // import ReloadPrompt from './components/ReloadPrompt.js'
+const {Cookies} = import('js-cookie');
 
 Vue.use(Vuetify);
 
@@ -18,7 +19,7 @@ const vueApp = new Vue({
     window.addEventListener("beforeinstallprompt", e => {
       e.preventDefault();
       // Stash the event so it can be triggered later.
-      if (Cookies.get("add-to-home-screen") === undefined) {
+      if (Cookies && Cookies.get("add-to-home-screen") === undefined) {
         this.deferredPrompt = e;
       }
     });
@@ -28,8 +29,10 @@ const vueApp = new Vue({
   },
   methods: {
     async dismiss() {
-      Cookies.set("add-to-home-screen", null, { expires: 15 });
-      this.deferredPrompt = null;
+      if(Cookies) {
+        Cookies.set("add-to-home-screen", null, { expires: 15 });
+        this.deferredPrompt = null;
+      }
     },
     async install() {
       this.deferredPrompt.prompt();

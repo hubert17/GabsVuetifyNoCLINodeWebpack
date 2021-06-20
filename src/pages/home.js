@@ -18,7 +18,7 @@ export default {
                     this.bingPhotos = response.data.images
                     this.saveToLocal(this.bingPhotos)
                 }).catch((err) => {
-                    let photos = localStorage.getItem(this.appConfig.name)
+                    let photos = localStorage.getItem("bingphotos")
                     if(photos) {
                         this.bingPhotos = photos
                     }
