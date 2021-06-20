@@ -20,8 +20,13 @@ const router = new VueRouter({
   comment out these callback if you want to use `prompt`
   */
   router.onReady(async() => {
-    const { registerSW } = await import("virtual:pwa-register")
-    registerSW({ immediate: true })
+    try {
+      const { registerSW } = await import("virtual:pwa-register")
+      registerSW({ immediate: true })
+    } catch(err) {
+      console.log(JSON.stringify(err))
+    }
+
   })
 
   export default router;

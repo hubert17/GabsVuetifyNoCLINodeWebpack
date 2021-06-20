@@ -2,7 +2,7 @@ import router from './router.js'
 import store from './store.js'
 import AppMain from './app.js'
 import Login from './components/Login.js'
-import ReloadPrompt from './components/ReloadPrompt.js'
+// import ReloadPrompt from './components/ReloadPrompt.js'
 
 Vue.use(Vuetify);
 
@@ -11,11 +11,37 @@ const vueApp = new Vue({
   el: "#app",
   vuetify: new Vuetify(),
   router,
-  components: { 'app-main' : AppMain, Login, ReloadPrompt },
+  data: {
+    deferredPrompt: null
+  },
+  created() {
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      if (Cookies.get("add-to-home-screen") === undefined) {
+        this.deferredPrompt = e;
+      }
+    });
+    window.addEventListener("appinstalled", () => {
+      this.deferredPrompt = null;
+    });
+  },
+  methods: {
+    async dismiss() {
+      Cookies.set("add-to-home-screen", null, { expires: 15 });
+      this.deferredPrompt = null;
+    },
+    async install() {
+      this.deferredPrompt.prompt();
+    }
+  },
+  components: { 'app-main' : AppMain, Login,
+    ReloadPrompt: () => import('./components/ReloadPrompt.js')
+  },
   mounted() {
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
-    elHtml.style.overflowY = 'hidden'
+    elHtml.style.overflowY = 'auto' // 'hidden'
 
     if (!navigator.onLine) {
       let user = localStorage.getItem(this.appConfig.storageName)
@@ -33,10 +59,17 @@ const vueApp = new Vue({
   template: /*html*/ `
 
 <v-app :style="(!authorized ? 'background: rgba(0,0,0,0)' : '')">
-    <ReloadPrompt />
+    <v-banner v-if="deferredPrompt" color="info" dark class="text-left">
+        Get our free app. It won't take up space on your phone and also works offline!
+        <template v-slot:actions>
+          <v-btn text @click="dismiss">Dismiss</v-btn>
+          <v-btn text @click="install">Install</v-btn>
+        </template>
+      </v-banner>
     <app-main v-if="authorized"></app-main>
     <router-view v-if="authorized"></router-view>
     <Login v-if="!authorized" />
+    <ReloadPrompt />
 </v-app>
 
 `
