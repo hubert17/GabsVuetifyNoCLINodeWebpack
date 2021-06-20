@@ -6,6 +6,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "js-cookie": "^2.2.1",
     "vite-plugin-vue2": "^1.6.2"
   },
   "devDependencies": {
