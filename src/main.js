@@ -2,6 +2,7 @@ import router from './router.js'
 import store from './store.js'
 import AppMain from './app.js'
 import Login from './components/Login.js'
+import Cookies from "https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js";
 // import ReloadPrompt from './components/ReloadPrompt.js'
 
 Vue.use(Vuetify);
