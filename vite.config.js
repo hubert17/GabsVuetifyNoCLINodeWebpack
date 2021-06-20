@@ -2,11 +2,11 @@ const { createVuePlugin } = require('vite-plugin-vue2');
 import { VitePWA } from 'vite-plugin-pwa'
 
 module.exports = {
-    base: '', // '/GabsVuetifyNoCLINodeWebpack/',
+    base: '/GabsVuetifyNoCLINodeWebpack/',
 	  plugins: [
         createVuePlugin(),
           VitePWA({
-            base: '', // '/GabsVuetifyNoCLINodeWebpack/',
+            base: '/GabsVuetifyNoCLINodeWebpack/',
             // for prompt comment the option or just remove this option, since it is the default behavior */
             registerType: 'prompt',
             includeAssets: ['/favicon.svg'],
