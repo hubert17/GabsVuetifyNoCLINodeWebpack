@@ -6,6 +6,7 @@ import ReloadPrompt from './components/ReloadPrompt.js'
 export default {
   name: 'App',
   data: () => ({
+    appDrawer: true,
     showSideInfo: true,
     learnings: [
       { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
@@ -15,13 +16,16 @@ export default {
   }),
   watch: {
     '$route' (to, from) {
-      this.showSideInfo = to.path === "/"
+      this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
   methods: {
     clickToggleDrawer: function () {
-      if(this.showSideInfo) return;
-      store.commit("appDrawer", !this.drawer);
+      if(this.showSideInfo) {
+        this.$root.$emit("appDrawer", true);
+      } else {
+        this.$root.$emit("appDrawer", !this.appDrawer);
+      }
     },
     gotoRoute(routeName) {
       router.push({ path: routeName }).catch(() => {});
@@ -30,6 +34,11 @@ export default {
       store.commit("setUser", null);
       router.push({ path: "/" }).catch(() => {});
     }
+  },
+  mounted() {
+    this.$root.$on("appDrawer", (val) => {
+      this.appDrawer = val;
+    });
   },
   computed: {
     routes() {
@@ -43,20 +52,12 @@ export default {
       if(!u) u = {userName :"offline user"}
       return u;
     },
-    drawer: {
-      get() {
-        return store.getters.appDrawer
-      },
-      set(val) {
-        return val;
-      }
-    }
   },
   components: { SideInfoPanel, ReloadPrompt},
   template: /*html*/ `
 <div>
    <ReloadPrompt />
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
+    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
 
     <v-list nav dark class="blue-grey lighten-1">
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
@@ -113,7 +114,7 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue-grey" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app color="blue-grey" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
@@ -172,7 +173,7 @@ export default {
                 </template>
 
                 <v-list  class="hidden-sm-and-up">
-                  <v-list-item @click="() => {gotoRoute('/')}">
+                  <v-list-item @click="() => {gotoRoute('/settings')}">
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
                   </v-list-item>

@@ -25,7 +25,6 @@ const store = new Vuex.Store({
       },
     },
     user: null,
-    appDrawer: true
   },
   getters: {
     appConfig: function (state) {
@@ -39,10 +38,7 @@ const store = new Vuex.Store({
     },
     authHeaderForm: function (state) {
       return state.authHeaderForm;
-    },
-    appDrawer: function (state) {
-        return state.appDrawer;
-    },
+    }
   },
   mutations: {
     setUser: function (state, val, fromLS = false) {
@@ -57,9 +53,6 @@ const store = new Vuex.Store({
         localStorage.removeItem(state.appConfig.storageName)
         console.log('User has logged out.')
       }
-    },
-    appDrawer: function (state, val) {
-        state.appDrawer = val;
     }
   },
   actions: {
