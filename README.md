@@ -51,15 +51,8 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 
         <script src="/src/main.js" type="module"></script> 
 
-4. Run the following command: 
-
-    `npm install`
-    
-    `npm install vite`
-    
-    `npm install vite-plugin-vue2`
-
-> Create this file: **package.json**
+4. Create this files: 
+> **package.json**
 
     {   
         "version": "0.0.0",   
@@ -73,7 +66,7 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
         } 
     }
 
-> Create this file:  **vite.config.js**
+> **vite.config.js**
 
     const { createVuePlugin } = require('vite-plugin-vue2');
     
@@ -82,9 +75,20 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 		base:  ''
     }; 
 
-5. `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it! 
+5. Run the following command: 
+
+    `npm install`
+    
+    `npm install vite`
+    
+    `npm install vite-plugin-vue2`
+    
+	`npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it! 
 
 Please note that these changes does not affect our primary goal of developing Vue spa without CLI, Node or Webpack. The app can still be served statically without a build process.
+
+## GitHub Actions build support
+Even without locally installing NPM, you can still create a production build by simply pushing your code to the master branch of the Github repo. Github Action will take care of the build and deployment processes. Check the yml script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
 
 ## Contributor
 
