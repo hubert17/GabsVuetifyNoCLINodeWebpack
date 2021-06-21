@@ -45,9 +45,6 @@ const vueApp = new Vue({
           <v-btn text @click="install">Install</v-btn>
         </template>
       </v-banner>
-      <v-banner v-else style="display:none;">
-        App installed.
-      </v-banner>
     <app-main v-if="authorized"></app-main>
     <router-view v-if="authorized"></router-view>
     <Login v-if="!authorized" />
