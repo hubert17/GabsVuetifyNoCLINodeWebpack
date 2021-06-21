@@ -132,7 +132,7 @@ export default {
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-sm-and-down">
+              <v-btn v-on="on" icon dark class="hidden-xs-only">
                 <v-icon>mdi-forum</v-icon>
               </v-btn>
             </template>
@@ -141,7 +141,7 @@ export default {
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-sm-and-down">
+              <v-btn v-on="on" icon dark class="hidden-xs-only">
                 <v-icon>mdi-vote</v-icon>
               </v-btn>
             </template>
@@ -150,7 +150,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">{{user.userName}}</span>
+                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-xs-only">{{user.userName}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
