@@ -51,7 +51,7 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 
         <script src="/src/main.js" type="module"></script> 
 
-4. Create this files: 
+4. Create these files: 
 > **package.json**
 
     {   
