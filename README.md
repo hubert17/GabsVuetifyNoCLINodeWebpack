@@ -35,60 +35,53 @@ One problem with using JavaScript Modules without a bundler is waterfall-loading
 
 ## Production Build with Vite
 The aim of this project is to quickly develop single page app without any compilation or build step.
-However, for production, I recommend to use Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. Reconfigure the project by following these steps:
+However, for production, I recommend to use Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. Reconfigure the project by following these steps: 
 
- 1.  Create `src` folder.
- 2.  Move the following to `src` folder:
+ 1.  Create `src` folder. 
+ 2.  Move the following to `src` folder: 
 
 > 	- *components*
 > 	- *pages*
 > 	- *app.js*
-> 	- *main.js*
-> 	- *router.js*
+> 	- *main.js* 
+> 	- *router.js* 
 > 	- *store.js*
 
 3. Update index.html script src. Notice the added preceding slash. You may now remove those `modulepreload` as you no longer need it. Use the minified version of CDN packages by simply inserting `.min` ex: `vue.min.js`.
 
-        <script src="/src/main.js" type="module"></script>
+        <script src="/src/main.js" type="module"></script> 
 
-4. Run the following command:
-
+4. Run the following command: 
     `npm install`
-
-    `npm install vite @vitejs/plugin-vue`
-
+    `npm install vite`
     `npm install vite-plugin-vue2`
 
 > Create this file: **package.json**
 
-    {
-        "version": "0.0.0",
+    {   
+        "version": "0.0.0",   
         "scripts": {
-            "dev": "vite",
-            "build": "vite build",
-            "serve": "vite preview"
-        },
-        "dependencies": {
-            "vite-plugin-vue2": "^1.6.2"
+    	    "dev": "vite",
+    	    "build": "vite build",
+    	    "serve": "vite preview"   
         },
         "devDependencies": {
-            "@vitejs/plugin-vue": "^1.2.3",
-            "vite": "^2.3.7"
-        }
+    	    "vite": "^2.3.7"   
+        } 
     }
 
 > Create this file:  **vite.config.js**
 
     const { createVuePlugin } = require('vite-plugin-vue2');
-
+    
     module.exports = {
 		plugins: [createVuePlugin()],
 		base:  ''
-    };
+    }; 
 
-5. `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
+5. `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it! 
 
-Please note that these changes do not affect our primary goal of developing Vue spa without CLI, Node or Webpack, and can still be serve without build processes.
+Please note that these changes does not affect our primary goal of developing Vue spa without CLI, Node or Webpack. The app can still be served statically without a build process.
 
 ## Contributor
 
