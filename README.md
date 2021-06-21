@@ -53,7 +53,9 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 
 4. Run the following command: 
     `npm install`
+    
     `npm install vite`
+    
     `npm install vite-plugin-vue2`
 
 > Create this file: **package.json**
