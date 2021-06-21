@@ -52,6 +52,7 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
         <script src="/src/main.js" type="module"></script> 
 
 4. Run the following command: 
+
     `npm install`
     
     `npm install vite`
