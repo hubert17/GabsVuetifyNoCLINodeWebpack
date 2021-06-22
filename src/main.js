@@ -25,6 +25,8 @@ const vueApp = new Vue({
       let user = localStorage.getItem(this.appConfig.storageName)
       if(user) store.commit("setUser", JSON.parse(user), true);
     }
+
+    this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
   },
   computed: {
     authorized: function () {

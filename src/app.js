@@ -114,7 +114,7 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app color="blue-grey" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="!$vuetify.theme.dark ? 'blue-grey' : ''" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
@@ -123,7 +123,7 @@ export default {
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon dark @click="">
+            <v-btn v-on="on" icon @click="">
               <v-icon>mdi-lightbulb-on</v-icon>
             </v-btn>
             </template>
@@ -132,7 +132,7 @@ export default {
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-xs-only">
+              <v-btn v-on="on" icon class="hidden-xs-only">
                 <v-icon>mdi-forum</v-icon>
               </v-btn>
             </template>
@@ -141,7 +141,7 @@ export default {
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-xs-only">
+              <v-btn v-on="on" icon class="hidden-xs-only">
                 <v-icon>mdi-vote</v-icon>
               </v-btn>
             </template>
@@ -150,7 +150,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-xs-only">{{user.userName}}</span>
+                  <v-btn text v-on="on" slot="activator" small="small" class="hidden-xs-only">{{user.userName}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
