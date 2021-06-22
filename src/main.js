@@ -21,6 +21,8 @@ const vueApp = new Vue({
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
     elHtml.style.overflowY = 'hidden'
+
+    this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
   },
   computed: {
     authorized: function () {

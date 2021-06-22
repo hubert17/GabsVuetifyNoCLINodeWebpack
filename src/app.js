@@ -53,7 +53,7 @@ export default {
   template: /*html*/ `
 <div>
 
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
+    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1" dark>
 
     <v-list nav dark class="blue-grey lighten-1">
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
@@ -110,7 +110,7 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue-grey" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app :color="!$vuetify.theme.dark ? 'blue-grey' : ''" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
@@ -119,7 +119,7 @@ export default {
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon dark @click="">
+            <v-btn v-on="on" icon @click="">
               <v-icon>mdi-lightbulb-on</v-icon>
             </v-btn>
             </template>
@@ -128,7 +128,7 @@ export default {
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-sm-and-down">
+              <v-btn v-on="on" icon class="hidden-sm-and-down">
                 <v-icon>mdi-forum</v-icon>
               </v-btn>
             </template>
@@ -137,7 +137,7 @@ export default {
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-sm-and-down">
+              <v-btn v-on="on" icon class="hidden-sm-and-down">
                 <v-icon>mdi-vote</v-icon>
               </v-btn>
             </template>
@@ -146,7 +146,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">{{user.userName}}</span>
+                  <v-btn text v-on="on" slot="activator" small="small"   class="hidden-sm-and-down">{{user.userName}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
