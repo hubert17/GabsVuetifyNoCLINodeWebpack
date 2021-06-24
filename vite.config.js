@@ -13,7 +13,7 @@ module.exports = {
               name: 'Gabs Vue App PWA',
               short_name: 'Gabs Vue',
               description: 'Gabs Vue App + Vite + Vite PWA ',
-              theme_color: '#607d8b', // '#607d8b'
+              theme_color: '#607d8c', // #607d8b
               icons: [
                 {
                   src: 'pwa-192x192.png',

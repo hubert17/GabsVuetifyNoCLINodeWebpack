@@ -2,6 +2,7 @@ import router from './router.js'
 import store from './store.js'
 import SideInfoPanel from './components/SideInfoPanel.js'
 import ReloadPrompt from './components/ReloadPrompt.js'
+import useCookiePWA from './mixins/useCookiePWA.js'
 
 export default {
   name: 'App',
@@ -19,6 +20,7 @@ export default {
       this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
+  mixins: [useCookiePWA],
   methods: {
     clickToggleDrawer: function () {
       if(this.showSideInfo) {
@@ -121,13 +123,14 @@ export default {
 
         <v-spacer></v-spacer>
 
+
         <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="">
-              <v-icon>mdi-lightbulb-on</v-icon>
+            <template v-slot:activator="{ on }" v-if="deferredPrompt">
+            <v-btn v-on="on" icon @click="install">
+              <v-icon>download_for_offline</v-icon>
             </v-btn>
             </template>
-            <span>Bulb Menu</span>
+            <span>Get our free app. It won't take up space on your phone and also works offline!</span>
           </v-tooltip>
 
         <v-tooltip bottom>
@@ -156,6 +159,10 @@ export default {
                 </template>
 
                 <v-list >
+                  <v-list-item @click="install" v-if="deferredPrompt">
+                      <v-icon class="mr-2">download_for_offline</v-icon>
+                      <v-list-item-title>Install App</v-list-item-title>
+                  </v-list-item>
                   <v-list-item @click="gotoRoute('/settings')">
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>

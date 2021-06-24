@@ -1,4 +1,5 @@
 import store from '../store.js'
+import useCookiePWA from '../mixins/useCookiePWA.js'
 
 export default {
     name: 'AppLogin',
@@ -9,6 +10,8 @@ export default {
         snackbar: {show: false, text: ''},
       };
     },
+
+    mixins: [useCookiePWA],
 
     methods: {
         getToken() {
@@ -44,7 +47,13 @@ export default {
     template: /*html*/ `
 
 <v-main>
-
+    <v-banner v-if="deferredPrompt" color="info" dark class="text-left">
+        Get our free app. It won't take up space on your phone and also works offline!
+        <template v-slot:actions>
+          <v-btn text @click="dismiss">Dismiss</v-btn>
+          <v-btn text @click="install">Install</v-btn>
+        </template>
+    </v-banner>
     <v-container fluid fill-height>
         <v-row align="center" justify="center">
             <v-col sm="4" class="text-xs-center">
