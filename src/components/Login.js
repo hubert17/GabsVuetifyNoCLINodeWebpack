@@ -34,8 +34,9 @@ export default {
     },
 
     mounted() {
+        let photos = localStorage.getItem("bingphotos");
         document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundImage = "url(https://www.bing.com/th?id=OHR.FinlandBrownBear_ROW6208280659_1920x1080.jpg&rf=LaDigue_1920x1080.jpg)";
+        document.body.style.backgroundImage = "url(https://bing.com" + JSON.parse(photos)[0].url + ")";
     },
 
     computed: {

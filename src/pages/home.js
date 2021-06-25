@@ -10,12 +10,12 @@ export default {
 
     methods: {
         getBingWallpapers() {
-            axios.get('data/bingPhotos.json').then((response) => {
-                this.bingPhotos = response.data.images
+            axios.get('https://api45gabs.azurewebsites.net/api/sample/bingphotos').then((response) => {
+                this.bingPhotos = response.data
                 this.saveToLocal(this.bingPhotos)
             }).catch((err) => {
-                axios.get('public/data/bingPhotos.json').then((response) => {
-                    this.bingPhotos = response.data.images
+                axios.get('data/bingPhotos.json').then((response) => {
+                    this.bingPhotos = response.data
                     this.saveToLocal(this.bingPhotos)
                 }).catch((err) => {
                     let photos = localStorage.getItem("bingphotos")
