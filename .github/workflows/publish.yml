@@ -36,6 +36,7 @@ jobs:
           npm install vite-plugin-pwa -D
           npm install vue-template-compiler
           npm install dexie
+          npm install --global cross-env
           npm run build
 
       - name: Deploy 🚀
