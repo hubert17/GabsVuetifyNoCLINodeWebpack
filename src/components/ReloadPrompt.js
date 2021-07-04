@@ -1,4 +1,5 @@
 import { css } from 'https://cdn.jsdelivr.net/npm/goober@2.0.33/dist/goober.modern.js';
+import useRegisterSW from '../mixins/useRegisterSW.js'
 
 const styles = css /*css*/ `
     .pwa-toast {
@@ -27,26 +28,14 @@ const styles = css /*css*/ `
 
 `
 
-const useRegisterSW = import("../mixins/useRegisterSW.js");
+// const useRegisterSW = import("../mixins/useRegisterSW.js");
 
 export default {
   name: "ReloadPrompt",
   mixins: [useRegisterSW],
-  data() {
-    return {
-      renderThis: true,
-      offlineReady: null,
-      needRefresh: null
-    }
-  },
-  mounted() {
-    if(Object.keys(useRegisterSW).length === 0) {
-      this.renderThis = false;
-    } else console.log('useRegisterSW is ' + JSON.stringify(useRegisterSW))
-  },
   template: /*html*/ `
 
-<div v-if="renderThis" class=${styles}>
+<div class=${styles}>
     <div v-if="offlineReady || needRefresh" class="pwa-toast" role="alert">
     <div class="message">
       <span v-if="offlineReady"> App ready to work offline </span>

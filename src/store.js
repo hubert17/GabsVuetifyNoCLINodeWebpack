@@ -5,7 +5,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     appConfig: {
-        name: "Gabs Vue App",
+        name: "Gabs Vue Appsss",
         baseUrl: "",
         apiBaseUrl: "https://api45gabs.azurewebsites.net",
         imgBaseUrl: "",

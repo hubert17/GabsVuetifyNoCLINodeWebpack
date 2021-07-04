@@ -2,11 +2,11 @@ import router from './router.js'
 import store from './store.js'
 import SideInfoPanel from './components/SideInfoPanel.js'
 import ReloadPrompt from './components/ReloadPrompt.js'
-import useCookiePWA from './mixins/useCookiePWA.js'
 
 export default {
   name: 'App',
   data: () => ({
+    isInstalled: false,
     appDrawer: true,
     showSideInfo: true,
     learnings: [
@@ -20,7 +20,6 @@ export default {
       this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
-  mixins: [useCookiePWA],
   methods: {
     clickToggleDrawer: function () {
       if(this.showSideInfo) {
@@ -35,12 +34,33 @@ export default {
     logout() {
       store.commit("setUser", null);
       router.push({ path: "/" }).catch(() => {});
+    },
+    install() {
+      this.$root.$emit("appInstall")
+    },
+    getPWADisplayMode() {
+      let display = 'browser';
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      if (document.referrer.startsWith('android-app://')) {
+        display = 'twa';
+      } else if (navigator.standalone || isStandalone) {
+        display = 'standalone';
+      }
+      console.log('getPWADisplayMode: ' + display)
+      return display;
     }
   },
   mounted() {
-    this.$root.$on("appDrawer", (val) => {
-      this.appDrawer = val;
-    });
+    if (this.$vuetify.breakpoint.mdAndUp) {
+      this.appDrawer = true
+    }
+    this.$root.$on("appDrawer", (val, by) => {
+      this.appDrawer = val
+    })
+    this.$root.$on("isInstalled", () => {
+      this.isInstalled = localStorage.getItem('pwa_' + window.location.hostname) || this.getPWADisplayMode() !== "browser"
+    })
+    this.$root.$emit("isInstalled")
   },
   computed: {
     routes() {
@@ -50,10 +70,10 @@ export default {
       return store.getters.appConfig;
     },
     user() {
-      let u = store.getters.user;
-      if(!u) u = {userName :"offline user"}
-      return u;
-    },
+      let u = store.getters.user
+      if (!u || !u.username) u = { username: "offline user", profilePic: "https://cdn.vuetifyjs.com/images/logos/logo.svg" }
+      return u
+    }
   },
   components: { SideInfoPanel, ReloadPrompt},
   template: /*html*/ `
@@ -125,8 +145,8 @@ export default {
 
 
         <v-tooltip bottom>
-            <template v-slot:activator="{ on }" v-if="deferredPrompt">
-            <v-btn v-on="on" icon @click="install">
+            <template v-slot:activator="{ on }" v-if="!isInstalled">
+            <v-btn v-on="on" icon @click="install()">
               <v-icon>download_for_offline</v-icon>
             </v-btn>
             </template>
@@ -159,7 +179,7 @@ export default {
                 </template>
 
                 <v-list >
-                  <v-list-item @click="install" v-if="deferredPrompt">
+                  <v-list-item @click="install()" v-if="!isInstalled">
                       <v-icon class="mr-2">download_for_offline</v-icon>
                       <v-list-item-title>Install App</v-list-item-title>
                   </v-list-item>

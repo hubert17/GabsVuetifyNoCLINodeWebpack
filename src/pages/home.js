@@ -10,21 +10,25 @@ export default {
 
     methods: {
         getBingWallpapers() {
-            axios.get('https://api45gabs.azurewebsites.net/api/sample/bingphotos').then((response) => {
-                this.bingPhotos = response.data
-                this.saveToLocal(this.bingPhotos)
-            }).catch((err) => {
-                axios.get('data/bingPhotos.json').then((response) => {
+            if(navigator.onLine) {
+                axios.get('https://api45gabs.azurewebsites.net/api/sample/bingphotos').then((response) => {
                     this.bingPhotos = response.data
                     this.saveToLocal(this.bingPhotos)
-                }).catch((err) => {
-                    let photos = localStorage.getItem("bingphotos")
+                })
+            } else {
+                let photos = JSON.parse(localStorage.getItem("bingphotos"))
                     if(photos) {
                         this.bingPhotos = photos
+                    } else {
+                        axios.get('data/bingPhotos.json').then((response) => {
+                            this.bingPhotos = response.data
+                            this.saveToLocal(this.bingPhotos)
+                        }).catch((err) => {
+                            console.log("Bing photos unavailable.")
+                        })
                     }
-                })
+            }
 
-            });
 
         },
         saveToLocal(bingPhotos) {
