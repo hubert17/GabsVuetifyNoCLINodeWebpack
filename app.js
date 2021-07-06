@@ -20,10 +20,10 @@ export default {
   },
   methods: {
     clickToggleDrawer: function () {
-      if(this.showSideInfo) {
-        this.$root.$emit("appDrawer", true);
+      if (this.showSideInfo) {
+        this.$root.$emit("appDrawer", true)
       } else {
-        this.$root.$emit("appDrawer", !this.appDrawer);
+        this.$root.$emit("appDrawer", !this.appDrawer)
       }
     },
     gotoRoute(routeName) {
@@ -34,6 +34,14 @@ export default {
       localStorage.removeItem(this.appConfig.storageName)
       router.push({ path: "/" }).catch(() => {});
     }
+  },
+  mounted() {
+    if (this.$vuetify.breakpoint.mdAndUp) {
+      this.appDrawer = true
+    }
+    this.$root.$on("appDrawer", (val, by) => {
+      this.appDrawer = val
+    })
   },
   computed: {
     routes() {
