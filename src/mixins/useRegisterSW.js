@@ -8,19 +8,24 @@ export default {
     }
   },
   async mounted() {
-    const { registerSW } = await import("virtual:pwa-register")
-    const vm = this
-    this.updateSW = registerSW({
-      immediate: true,
-      onOfflineReady() {
-        vm.offlineReady = true
-        vm.onOfflineReadyFn()
-      },
-      onNeedRefresh() {
-        vm.needRefresh = true
-        vm.onNeedRefreshFn()
-      }
-    })
+    try {
+      const { registerSW } = await import("virtual:pwa-register")
+      const vm = this
+      this.updateSW = registerSW({
+        immediate: true,
+        onOfflineReady() {
+          vm.offlineReady = true
+          vm.onOfflineReadyFn()
+        },
+        onNeedRefresh() {
+          vm.needRefresh = true
+          vm.onNeedRefreshFn()
+        }
+      })
+    } catch {
+      console.log("PWA disabled.")
+    }
+
   },
   methods: {
     async closePrompt() {
