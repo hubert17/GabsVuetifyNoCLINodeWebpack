@@ -31,9 +31,9 @@ export default {
     },
 
     mounted() {
-        let photos = localStorage.getItem("bingphotos");
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundImage = "url(https://bing.com" + JSON.parse(photos)[0].url + ")";
+        let photos = localStorage.getItem("bingphotos")
+        document.body.style.backgroundSize = "cover"
+        document.body.style.backgroundImage = "url(https://bing.com" + (photos ? JSON.parse(photos)[0].url : "/th?id=OHR.BurleighHeads_EN-US4425800469_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp") + ")"
     },
 
     computed: {
