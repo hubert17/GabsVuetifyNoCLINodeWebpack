@@ -4,22 +4,24 @@ import SideInfoPanel from './components/SideInfoPanel.js'
 
 export default {
   name: 'App',
-  data: () => ({
-    appDrawer: true,
-    showSideInfo: true,
-    learnings: [
-      { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
-      { title: 'Vuetify', link:'https://vuetifyjs.com/en/introduction/why-vuetify/' },
-      { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
-    ]
-  }),
+  data() {
+    return {
+      appDrawer: true,
+      showSideInfo: true,
+      learnings: [
+        { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
+        { title: 'Vuetify', link:'https://vuetifyjs.com/en/introduction/why-vuetify/' },
+        { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
+      ]
+    }
+  },
   watch: {
     '$route' (to, from) {
       this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
   methods: {
-    clickToggleDrawer: function () {
+    clickToggleDrawer() {
       if (this.showSideInfo) {
         this.$root.$emit("appDrawer", true)
       } else {
@@ -55,8 +57,9 @@ export default {
     },
   },
   components: { SideInfoPanel },
-  template: /*html*/ `<div>
+  template: /*html*/ `
 
+  <div>
    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
 
    <v-list nav dark class="blue-grey lighten-1">
@@ -189,7 +192,6 @@ export default {
 
      </v-app-bar>
 
+</div>
 
-</div>`,
-
-};
+`};
