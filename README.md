@@ -81,9 +81,7 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 
    `npm install`
 
-   `npm install vite`
-
-   `npm install vite-plugin-vue2`
+   `npm ci`
 
    `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
 
