@@ -21,10 +21,18 @@ const vueApp = new Vue({
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
     elHtml.style.overflowY = 'hidden'
+
+    let localUser = localStorage.getItem(this.appConfig.storageName);
+    if(localUser) {
+      store.commit("setUser", JSON.parse(localUser), true)
+    }
   },
   computed: {
     authorized: function () {
       return store.getters.user != null;
+    },
+    appConfig() {
+      return store.getters.appConfig;
     }
   },
   template: /*html*/ `

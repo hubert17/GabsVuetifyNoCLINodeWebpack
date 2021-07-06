@@ -31,6 +31,7 @@ export default {
     },
     logout() {
       store.commit("setUser", null);
+      localStorage.removeItem(this.appConfig.storageName)
       router.push({ path: "/" }).catch(() => {});
     }
   },
@@ -141,7 +142,7 @@ export default {
 
            <v-menu left bottom>
                <template v-slot:activator="{ on }">
-                 <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-xs-only">{{user.userName}}</span>
+                 <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-xs-only">{{user.username}}</span>
                      <v-icon>keyboard_arrow_down</v-icon>
                    </v-btn>
                </template>
@@ -159,9 +160,12 @@ export default {
              </v-menu>
 
            <v-menu left bottom>
-               <template v-slot:activator="{ on }">
-                 <v-avatar v-ripple v-on="on" slot="activator" class="mr-2" size="36"  ><img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" /></v-avatar>
-               </template>
+                <template v-slot:activator="{ on }">
+                  <v-avatar color="red" :ripple="{ class: 'red--text' }" v-on="on" slot="activator" class="mr-2" size="36"  >
+                    <img v-if="user && user.profilePic" :src="appConfig.apiBaseUrl + user.profilePic" />
+                    <span class="white--text text-h6">{{ user.username.substring(0,2).toUpperCase() }}</span>
+                  </v-avatar>
+                </template>
 
                <v-list  class="hidden-sm-and-up">
                  <v-list-item @click="() => {gotoRoute('/settings')}">

@@ -14,7 +14,7 @@ export default {
     methods: {
         getToken() {
             this.loading = true;
-            axios.post(this.appConfig.apiBaseUrl + "/TOKEN?username=" + this.login.username + "&password=" + this.login.password, this.authHeader)
+            axios.post(this.appConfig.apiBaseUrl + "/TOKEN?username=" + this.login.username + "&password=" + this.login.password)
                 .then((response) => {
                     let user = response.data;
                     if (user && user.token) {
@@ -33,11 +33,11 @@ export default {
 
     mounted() {
         document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundImage = "url(https://www.bing.com/th?id=OHR.FinlandBrownBear_ROW6208280659_1920x1080.jpg&rf=LaDigue_1920x1080.jpg)";
+        document.body.style.backgroundImage = "url(https://www.bing.com/th?id=OHR.BurleighHeads_EN-US4425800469_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp)";
     },
 
     computed: {
-        appConfig: function () {
+        appConfig() {
           return store.getters.appConfig;
         }
       },
