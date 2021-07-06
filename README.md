@@ -4,7 +4,7 @@
 
 This is a single-page application that uses Vue and Vue Router with a beautiful Material UI from Vuetify. It uses ES6 imports to render components and templates. No Node is required. Just git clone and serve statically.
 
-You can also select "Use this Template" in order to create a new single-page application that you can build upon. You can write code in any environment that has a static web-server. There are [virtually] no dependencies. It uses CDN-hosted libraries.
+You can also download this template in order to create a new single-page application that you can build upon. You can write code in any environment that has a static web-server. There are [virtually] no local dependencies. It uses CDN-hosted libraries.
 
 **Demo**: https://hubert17.github.io/GabsVuetifyNoCLINodeWebpack
 
@@ -41,12 +41,12 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 1.  Create `src` folder.
 2.  Move the following to `src` folder:
 
->     - *components*
->     - *pages*
->     - *app.js*
->     - *main.js*
->     - *router.js*
->     - *store.js*
+>     - components
+>     - pages
+>     - app.js
+>     - main.js
+>     - router.js
+>     - store.js
 
 3.  Update index.html script src. Notice the added preceding slash. You may now remove those `modulepreload` as you no longer need it. Use the minified version of CDN packages by simply inserting `.min` ex: `vue.min.js`.
 
@@ -68,28 +68,28 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
             }
         }
 
-> **vite.config.js**
+    > **vite.config.js**
 
-    const { createVuePlugin } = require('vite-plugin-vue2');
+        const { createVuePlugin } = require('vite-plugin-vue2');
 
-    module.exports = {
-    	plugins: [createVuePlugin()],
-    	base:  ''
-    };
+        module.exports = {
+        	plugins: [createVuePlugin()],
+        	base:  ''
+        };
 
-5. Run the following command:
+5.  Run the following command:
 
-   `npm install`
+    `npm install`
 
-   `npm ci`
+    `npm ci`
 
-   `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
+    `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
 
 Please note that these changes does not affect our primary goal of developing Vue spa without CLI, Node or Webpack. The app can still be served statically without a build process.
 
 ## GitHub Actions build support
 
-Even without locally installing NPM, you can still create production build by simply pushing your code to the master branch of the Github repo. Github Action will take care of the build and deployment processes. Check the yml script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
+Even without locally installing NPM, you can still create a production build by simply pushing your code to the master branch of the Github repo. Github Actions will take care of the build and deployment processes. Check out the yml script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
 
 ## Contributor
 
