@@ -49,7 +49,6 @@ const vueApp = new Vue({
     <app-main v-if="authorized"></app-main>
     <router-view v-if="authorized"></router-view>
     <Login v-if="!authorized" />
-
 </v-app>
 
 `

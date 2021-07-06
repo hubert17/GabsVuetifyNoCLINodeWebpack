@@ -37,6 +37,34 @@ export default defineConfig({
           workbox: {
             runtimeCaching: [
               {
+                urlPattern: /^https:\/\/api45\.bernardgabon\.com\/.*/i,
+                handler: "CacheFirst",
+                options: {
+                  cacheName: "rdhenry-cache",
+                  expiration: {
+                    maxEntries: 10,
+                    maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                  },
+                  cacheableResponse: {
+                    statuses: [0, 200]
+                  }
+                }
+              },
+              {
+                urlPattern: /^https:\/\/api45gabs\.azurewebsites\.net\/.*/i,
+                handler: "CacheFirst",
+                options: {
+                  cacheName: "rdhenry-cache",
+                  expiration: {
+                    maxEntries: 10,
+                    maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                  },
+                  cacheableResponse: {
+                    statuses: [0, 200]
+                  }
+                }
+              },
+              {
                 urlPattern: /^https:\/\/cdn\.vuetifyjs\.com\/.*/i,
                 handler: 'CacheFirst',
                 options: {

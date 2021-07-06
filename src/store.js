@@ -5,7 +5,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     appConfig: {
-        name: "Gabs Vue Appsss",
+        name: "Gabs Vue App",
         baseUrl: "",
         apiBaseUrl: "https://api45gabs.azurewebsites.net",
         imgBaseUrl: "",
@@ -45,15 +45,14 @@ const store = new Vuex.Store({
       state.user = val;
       if(val && val.token) {
         if (!fromLS) localStorage.setItem(state.appConfig.storageName, JSON.stringify(state.user));
-        state.authHeader.headers.Authorization = "Bearer " + val.token;
-        state.authHeaderForm.headers.Authorization = "Bearer " + val.token;
+        state.authHeader.headers.Authorization = "Bearer " + state.user.token;
+        state.authHeaderForm.headers.Authorization = "Bearer " + state.user.token;
       } else {
         state.authHeader.headers.Authorization = null;
         state.authHeaderForm.headers.Authorization = null;
-        localStorage.removeItem(state.appConfig.storageName)
         console.log('User has logged out.')
       }
-    }
+    },
   },
   actions: {
 

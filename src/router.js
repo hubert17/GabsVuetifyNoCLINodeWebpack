@@ -21,7 +21,6 @@ const router = new VueRouter({
 //   try {
 //     const { registerSW } = await import("virtual:pwa-register")
 //     registerSW({ immediate: true })
-//     alert("hi virtual:pwa-register")
 //   } catch (err) {
 //     console.log(JSON.stringify(err))
 //   }
