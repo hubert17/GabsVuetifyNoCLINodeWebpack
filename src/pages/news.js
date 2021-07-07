@@ -22,7 +22,7 @@ export default {
     },
 
     created () {
-        axios.get('https://newsapi.org/v2/top-headlines?country=ph', { headers: { "X-Api-Key": store.getters.appConfig.newsApiKey }})
+        axios.get('https://api45gabs.azurewebsites.net/api/sample/news?apiKey=' + store.getters.appConfig.newsApiKey)
           .then(response => {
             this.articles = response.data.articles
           })
