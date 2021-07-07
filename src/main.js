@@ -18,7 +18,7 @@ const vueApp = new Vue({
   mounted() {
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
-    elHtml.style.overflowY = 'auto' // 'hidden'
+    elHtml.style.overflowY = 'hidden' // 'auto' //
 
     if (!navigator.onLine) {
       let user = localStorage.getItem(this.appConfig.storageName)
@@ -47,7 +47,9 @@ const vueApp = new Vue({
       </template>
     </v-banner>
     <app-main v-if="authorized"></app-main>
-    <router-view v-if="authorized"></router-view>
+    <v-main v-if="authorized" style="height: 100vh;overflow-y: auto;">
+      <router-view></router-view>
+    </v-main>
     <Login v-if="!authorized" />
 </v-app>
 

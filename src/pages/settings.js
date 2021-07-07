@@ -13,8 +13,7 @@ export default {
 
     template: /*html*/ `
 
-<v-main>
-    <v-container>
+<v-container>
         <h1>
             {{ title }}
         </h1>
@@ -23,8 +22,7 @@ export default {
                 <BaseButton />
             </v-col>
         </v-row>
-    </v-container>
-</v-main>
+</v-container>
 
     `,
   };
