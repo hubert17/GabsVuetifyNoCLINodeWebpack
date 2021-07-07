@@ -27,6 +27,14 @@ jobs:
           find: "base: ''"
           replace: "base: '/${{ github.event.repository.name }}/'"
           include: vite.config.js
+      
+      - name: Set NewsAPI key
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: 'newsApiKey: ""'
+          replace: 'newsApiKey: "${{ secrets.NEWS_API_KEY }}"'
+          include: src/store.js   
+          
 
       - name: Set NewsAPI key
         uses: jacobtomlinson/gha-find-replace@master
