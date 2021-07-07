@@ -22,13 +22,11 @@ export default {
 
     template: /*html*/ `
 
-<v-main class=${styles}>
-    <v-container>
-        <h1 class="header">
-            {{ title }}
-        </h1>
-    </v-container>
-</v-main>
+<v-container class=${styles}>
+    <h1 class="header">
+        {{ title }}
+    </h1>
+</v-container>
 
     `,
   };

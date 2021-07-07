@@ -38,7 +38,9 @@ const vueApp = new Vue({
 
 <v-app :style="(!authorized ? 'background: rgba(0,0,0,0)' : '')">
     <app-main v-if="authorized" :user="user"></app-main>
-    <router-view v-if="authorized"></router-view>
+    <v-main v-if="authorized" style="height: 100vh;overflow-y: auto;">
+      <router-view></router-view>
+    </v-main>
     <Login v-if="!authorized" />
 </v-app>
 

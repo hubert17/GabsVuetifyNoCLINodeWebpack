@@ -15,18 +15,16 @@ export default {
 
     template: /*html*/ `
 
-<v-main>
-    <v-container>
-        <h1>
-            {{ title }}
-        </h1>
-        <v-row>
-            <v-col>
-                <BaseButton />
-            </v-col>
-        </v-row>
-    </v-container>
-</v-main>
+<v-container>
+    <h1>
+        {{ title }}
+    </h1>
+    <v-row>
+        <v-col>
+            <BaseButton />
+        </v-col>
+    </v-row>
+</v-container>
 
     `,
   };
