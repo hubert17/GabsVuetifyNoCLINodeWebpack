@@ -10,7 +10,7 @@ const store = new Vuex.Store({
         apiBaseUrl: "https://api45gabs.azurewebsites.net",
         imgBaseUrl: "",
         storageName: 'lsgabsvueapp',
-        newsApiKey: '1db81ac8b6b64bdd9dfb5bed2647f495' // https://newsapi.org/register
+        newsApiKey: "" // https://newsapi.org/register
     },
     authHeader: {
       headers: {
