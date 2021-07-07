@@ -39,7 +39,7 @@ const vueApp = new Vue({
 
 <v-app :style="(!authorized ? 'background: rgba(0,0,0,0)' : '')" class="-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-touch-callout: none;">
     <ReloadPrompt />
-    <v-banner v-if="deferredPrompt" color="info" dark class="text-left">
+    <v-banner v-if="deferredPrompt && !authorized" color="info" dark class="text-left">
       Get our free app. It won't take up space on your device and also works offline!
       <template v-slot:actions>
         <v-btn text @click="dismiss">Dismiss</v-btn>
