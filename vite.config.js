@@ -65,6 +65,20 @@ export default defineConfig({
                 }
               },
               {
+                urlPattern: /^https:\/\/newsapi\.org\/.*/i,
+                handler: "CacheFirst",
+                options: {
+                  cacheName: "rdhenry-cache",
+                  expiration: {
+                    maxEntries: 10,
+                    maxAgeSeconds: 60 * 60 * 24 * 7 // <== 7 days
+                  },
+                  cacheableResponse: {
+                    statuses: [0, 200]
+                  }
+                }
+              },
+              {
                 urlPattern: /^https:\/\/cdn\.vuetifyjs\.com\/.*/i,
                 handler: 'CacheFirst',
                 options: {
