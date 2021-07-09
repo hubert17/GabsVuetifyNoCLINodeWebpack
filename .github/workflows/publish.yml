@@ -1,0 +1,41 @@
+name: Build and Deploy
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Update CDN with minified version
+        uses: datamonsters/replace-action@master
+        with:
+          files: "index.html"
+          replacements: "dist/vue.js=dist/vue.min.js,vuetify.js=vuetify.min.js,vue-router.js=vue-router.min.js,vuex.js=vuex.min.js"
+
+      - name: Set NewsAPI key
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: 'newsApiKey: ""'
+          replace: 'newsApiKey: "${{ secrets.NEWS_API_KEY }}"'
+          include: src/store.js
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm install
+          npm ci
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.

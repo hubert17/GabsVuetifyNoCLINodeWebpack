@@ -4,7 +4,10 @@ import SideInfoPanel from './components/SideInfoPanel.js'
 
 export default {
   name: 'App',
+
   data: () => ({
+    isInstalled: false,
+    appDrawer: true,
     showSideInfo: true,
     learnings: [
       { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
@@ -12,24 +15,40 @@ export default {
       { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
     ]
   }),
+
   watch: {
     '$route' (to, from) {
-      this.showSideInfo = to.path === "/"
+      this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
+
   methods: {
     clickToggleDrawer: function () {
-      if(this.showSideInfo) return;
-      store.commit("appDrawer", !this.drawer);
+      if(this.showSideInfo) {
+        this.$root.$emit("appDrawer", true);
+      } else {
+        this.$root.$emit("appDrawer", !this.appDrawer);
+      }
     },
     gotoRoute(routeName) {
       router.push({ path: routeName }).catch(() => {});
     },
     logout() {
       store.commit("setUser", null);
+      localStorage.removeItem(this.appConfig.storageName)
       router.push({ path: "/" }).catch(() => {});
-    }
+    },
   },
+
+  mounted() {
+    if (this.$vuetify.breakpoint.mdAndUp) {
+      this.appDrawer = true
+    }
+    this.$root.$on("appDrawer", (val, by) => {
+      this.appDrawer = val
+    })
+  },
+
   computed: {
     routes() {
       return this.$router.options.routes;
@@ -38,22 +57,17 @@ export default {
       return store.getters.appConfig;
     },
     user() {
-      return store.getters.user;
-    },
-    drawer: {
-      get() {
-        return store.getters.appDrawer
-      },
-      set(val) {
-        return val;
-      }
+      let u = store.getters.user
+      if (!u || !u.username) u = { username: "offline user" }
+      return u
     }
   },
+
   components: { SideInfoPanel },
+
   template: /*html*/ `
 <div>
-
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
+    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
 
     <v-list nav dark class="blue-grey lighten-1">
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
@@ -110,7 +124,7 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="blue-grey" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="!$vuetify.theme.dark ? 'blue-grey' : ''" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
@@ -119,16 +133,7 @@ export default {
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon dark @click="">
-              <v-icon>mdi-lightbulb-on</v-icon>
-            </v-btn>
-            </template>
-            <span>Bulb Menu</span>
-          </v-tooltip>
-
-        <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-sm-and-down">
+              <v-btn v-on="on" icon class="hidden-xs-only">
                 <v-icon>mdi-forum</v-icon>
               </v-btn>
             </template>
@@ -137,7 +142,7 @@ export default {
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon dark class="hidden-sm-and-down">
+              <v-btn v-on="on" icon class="hidden-xs-only">
                 <v-icon>mdi-vote</v-icon>
               </v-btn>
             </template>
@@ -146,7 +151,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small"  dark  class="hidden-sm-and-down">{{user.userName}}</span>
+                  <v-btn text v-on="on" slot="activator" small="small" class="hidden-xs-only">{{user.googleInfo ? user.googleInfo.firstName : user.username}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
@@ -165,11 +170,14 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-avatar v-ripple v-on="on" slot="activator" class="mr-2" size="36"  ><img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" /></v-avatar>
+                  <v-avatar color="red" :ripple="{ class: 'red--text' }" v-on="on" slot="activator" class="mr-2" size="36"  >
+                    <img v-if="user && user.profilePic" :src="appConfig.apiBaseUrl + user.profilePic" />
+                    <span class="white--text text-h6">{{ user.username.substring(0,2).toUpperCase() }}</span>
+                  </v-avatar>
                 </template>
 
                 <v-list  class="hidden-sm-and-up">
-                  <v-list-item @click="() => {gotoRoute('/')}">
+                  <v-list-item @click="() => {gotoRoute('/settings')}">
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
                   </v-list-item>

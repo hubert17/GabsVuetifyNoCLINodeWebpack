@@ -1,6 +1,10 @@
+import { defineConfig } from "vite"
 const { createVuePlugin } = require('vite-plugin-vue2');
 
-module.exports = {
-	plugins: [createVuePlugin()],
-    base: ''
-};
+
+export default defineConfig({
+    base: '', // '/GabsVuetifyNoCLINodeWebpack/',
+    plugins: [
+        createVuePlugin()
+    ],
+});
