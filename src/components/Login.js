@@ -105,10 +105,10 @@ export default {
     },
 
     computed: {
-        appConfig: function () {
+        appConfig() {
           return store.getters.appConfig;
         },
-        currentTitle () {
+        currentTitle() {
             switch (this.step) {
                 case 1: return 'Login'
                 case 2: return 'Sign-up'

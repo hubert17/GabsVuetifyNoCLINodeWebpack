@@ -23,7 +23,7 @@ export default {
   },
 
   methods: {
-    clickToggleDrawer: function () {
+    clickToggleDrawer() {
       if(this.showSideInfo) {
         this.$root.$emit("appDrawer", true);
       } else {

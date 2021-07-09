@@ -23,10 +23,10 @@ const vueApp = new Vue({
     this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
   },
   computed: {
-    authorized: function () {
+    authorized() {
       return store.getters.user != null;
     },
-    appConfig: function () {
+    appConfig() {
       return store.getters.appConfig;
     }
   },

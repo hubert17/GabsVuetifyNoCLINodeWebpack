@@ -30,21 +30,21 @@ const store = new Vuex.Store({
     user: null,
   },
   getters: {
-    appConfig: function (state) {
+    appConfig(state) {
       return state.appConfig;
     },
-    user: function (state) {
+    user(state) {
       return state.user;
     },
-    authHeader: function (state) {
+    authHeader(state) {
       return state.authHeader;
     },
-    authHeaderForm: function (state) {
+    authHeaderForm(state) {
       return state.authHeaderForm;
     }
   },
   mutations: {
-    setUser: function (state, val, fromLS = false) {
+    setUser(state, val, fromLS = false) {
       state.user = val;
       if(val && val.token) {
         if (!fromLS) localStorage.setItem(state.appConfig.storageName, JSON.stringify(state.user));
