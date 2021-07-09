@@ -21,6 +21,13 @@ jobs:
           files: "index.html"
           replacements: "dist/vue.js=dist/vue.min.js,vuetify.js=vuetify.min.js,vue-router.js=vue-router.min.js,vuex.js=vuex.min.js"
 
+      - name: Update vite pwa manifest base for Github
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "base: ''"
+          replace: "base: '/${{ github.event.repository.name }}/'"
+          include: vite.config.js
+
       - name: Set NewsAPI key
         uses: jacobtomlinson/gha-find-replace@master
         with:
