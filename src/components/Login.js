@@ -48,30 +48,32 @@ export default {
                     this.$refs.username.focus();
                 });
         },
+        register() {
+          this.loading = true;
+          axios.post(this.appConfig.apiBaseUrl + "/api/account/register?username=" + this.reg.username + "&password=" + this.reg.password)
+          .then((response) => {
+              this.loading = false;
+              let user = response.data.user;
+              if (user && user.userName) {
+                  this.login.username = user.userName
+                  this.login.password = ''
+                  this.step++
+                  this.$refs.password.focus();
+                  return;
+              } else throw {}
+          }).catch((err) => {
+              console.log(JSON.stringify(err.response))
+              this.loading = false;
+              this.step = 1;
+              this.snackbar.text = err.response.data.message
+              this.snackbar.show = true;
+          });
+        },
         next(step) {
             if(step === 3) {
-                this.loading = true;
-                axios.post(this.appConfig.apiBaseUrl + "/api/account/register?username=" + this.reg.username + "&password=" + this.reg.password)
-                    .then((response) => {
-                        this.loading = false;
-                        let user = response.data.user;
-                        if (user && user.userName) {
-                            this.login.username = user.userName
-                            this.login.password = ''
-                            this.step++
-                            this.$refs.password.focus();
-                            return;
-                        } else throw {}
-                    }).catch((err) => {
-                        console.log(JSON.stringify(err.response))
-                        this.loading = false;
-                        this.step = 1;
-                        this.snackbar.text = err.response.data.message
-                        this.snackbar.show = true;
-                    });
-
-                    Object.assign(this.reg,this.regEmpty);
-                    if(this.appConfig.recaptchaKey) this.$refs.googleRecaptcha.reset()
+                this.register();
+                Object.assign(this.reg,this.regEmpty);
+                if(this.appConfig.recaptchaKey) this.$refs.googleRecaptcha.reset()
             }
 
             return this.step !== 5 ? this.step++ : this.step=1
