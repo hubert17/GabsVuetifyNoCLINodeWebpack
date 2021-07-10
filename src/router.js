@@ -14,7 +14,7 @@ const routes = [
 
 const router = new VueRouter({
     base: window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")+1),
-    mode: 'history', // real path
+    // mode: 'history',
     routes, // short for `routes: routes`
   });
 
