@@ -1,9 +1,9 @@
-import homepage from './pages/home.js'
-import settings from './pages/settings.js'
-import help from './pages/help.js'
-import news from './pages/news.js'
+import homepage from './pages/home.vue.js'
+import settings from './pages/settings.vue.js'
+import help from './pages/help.vue.js'
+import news from './pages/news.vue.js'
 
-Vue.use(VueRouter);
+//Vue.use(VueRouter);
 
 const routes = [
     { title: "Home", icon: "home", path: "/", component: homepage },
@@ -12,9 +12,9 @@ const routes = [
     { title: "Help", icon: "help_outline", path: "/help", component: help },
   ];
 
-const router = new VueRouter({
+const router = VueRouter.createRouter({
     base: window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")+1),
-    // mode: 'history',
+    history: VueRouter.createWebHashHistory(), //createWebHistory(),
     routes, // short for `routes: routes`
   });
 

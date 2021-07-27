@@ -1,7 +1,4 @@
 import store from '../store.js'
-import GoogleSignInButton from  '../mixins/google-signin-button.js'
-import VueRecaptcha from 'https://cdn.jsdelivr.net/npm/vue-recaptcha@1.3.0/dist/vue-recaptcha.es.js'; // https://www.google.com/recaptcha/admin/create
-
 import { css } from 'https://cdn.jsdelivr.net/npm/goober@2.0.33/dist/goober.modern.js';
 const styles = css /*css*/ `
 
@@ -14,8 +11,7 @@ const styles = css /*css*/ `
 export default {
     name: 'AppLogin',
 
-    components: { VueRecaptcha },
-    directives: { GoogleSignInButton },
+    //directives: { GoogleSignInButton },
 
     data() {
       return {
@@ -73,31 +69,10 @@ export default {
             if(step === 3) {
                 this.register();
                 Object.assign(this.reg,this.regEmpty);
-                if(this.appConfig.recaptchaKey) this.$refs.googleRecaptcha.reset()
             }
 
             return this.step !== 5 ? this.step++ : this.step=1
         },
-        OnGoogleAuthSuccess (idToken) {
-            // Receive the idToken and make your magic with the backend
-            axios.post(this.appConfig.apiBaseUrl + "/GOOGLETOKEN?idToken=" + idToken)
-                .then((response) => {
-                    let user = response.data;
-                    if (user && user.token) {
-                        store.commit("setUser", user);
-                        console.log("Authentication OK. ");
-                    } else throw {}
-                }).catch((err) => {
-                    console.log(err.message); //error.response.data.message.text
-                    this.loading = false;
-                    this.snackbar.text = "Invalid username and/or password."
-                    this.snackbar.show = true;
-                    this.$refs.username.focus();
-                });
-        },
-        OnGoogleAuthFail (error) {
-            console.log(error)
-        }
     },
 
     mounted() {
@@ -151,12 +126,6 @@ export default {
                                 <v-btn color="blue-grey white--text" :loading="loading" block="block" @click.prevent="getToken" type="button" :disabled="loading">Sign in</v-btn>
                                 <v-spacer class="py-1"></v-spacer>
                                 <v-btn color="blue-grey" outlined block="block" @click.prevent="Object.assign(regEmpty,reg);step=2" type="button" :disabled="loading">Create New Account</v-btn>
-                                <v-spacer class="py-1"></v-spacer>
-                                <v-btn v-if="appConfig.clientId" v-google-signin-button="appConfig.clientId" color="primary" outlined large block="block" type="button" style="text-transform:none;letter-spacing:0em;font-weight:400;font-size:1.2em;">
-                                    <!-- <v-icon right dark > mdi-google </v-icon> 4285f4 -->
-                                    <v-img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" max-height="30" max-width="30" ></v-img>
-                                    <span class="pl-3">Continue with Google</span>
-                                </v-btn>
                             </v-form>
                         </v-card-text>
                         </v-window-item>
@@ -177,8 +146,6 @@ export default {
                               <span class="text-caption grey--text text--darken-1">
                                 Please enter a password for your account
                               </span>
-                              <v-spacer class="py-2"></v-spacer>
-                              <vue-recaptcha v-if="appConfig.recaptchaKey" ref="googleRecaptcha" :sitekey="appConfig.recaptchaKey" :loadRecaptchaScript="true" @verify="disabledNext=false"></vue-recaptcha>
                             </v-card-text>
                           </v-window-item>
 
@@ -201,7 +168,7 @@ export default {
                     <v-card-actions>
                         <v-btn v-if="step !== 1 && step !== 5" text @click="step--" > Back </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn  v-if="step !== 1" :disabled="(step === 2 && !reg.username) || (step === 3 && (!reg.password || reg.password !== reg.confirm || (disabledNext && !(!appConfig.recaptchaKey)) ))" color="primary" depressed @click="next(step)" > Next </v-btn>
+                        <v-btn  v-if="step !== 1" :disabled="(step === 2 && !reg.username) || (step === 3 && (!reg.password || reg.password !== reg.confirm || (disabledNext) ))" color="primary" depressed @click="next(step)" > Next </v-btn>
                       </v-card-actions>
               </v-card>
             </v-col>

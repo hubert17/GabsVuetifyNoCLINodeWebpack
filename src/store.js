@@ -1,6 +1,6 @@
 // https://levelup.gitconnected.com/vuex-is-super-simple-vue-js-d8da2e552766
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {

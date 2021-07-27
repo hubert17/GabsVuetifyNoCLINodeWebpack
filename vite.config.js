@@ -1,10 +1,9 @@
-import { defineConfig } from "vite"
-const { createVuePlugin } = require('vite-plugin-vue2');
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
-
+// https://vitejs.dev/config/
 export default defineConfig({
-    base: '', // '/GabsVuetifyNoCLINodeWebpack/',
-    plugins: [
-        createVuePlugin()
-    ],
-});
+    base: '',
+    plugins: [vue()],
+    define: { 'process.env': {} },
+})

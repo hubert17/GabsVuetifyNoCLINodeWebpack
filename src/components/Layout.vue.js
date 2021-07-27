@@ -1,9 +1,9 @@
-import router from './router.js'
-import store from './store.js'
-import SideInfoPanel from './components/SideInfoPanel.js'
+import router from '../router.js'
+import store from '../store.js'
+import SideInfoPanel from './SideInfoPanel.vue.js'
 
 export default {
-  name: 'App',
+  name: 'Layout',
 
   data: () => ({
     isInstalled: false,

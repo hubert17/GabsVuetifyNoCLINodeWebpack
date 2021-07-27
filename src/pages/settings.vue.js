@@ -8,7 +8,7 @@ export default {
     },
 
     components: {
-        BaseButton: () => import('../components/BaseButton.js'),
+        BaseButton: () => import('../components/BaseButton.vue.js'),
     },
 
     template: /*html*/ `

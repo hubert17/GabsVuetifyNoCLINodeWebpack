@@ -1,44 +1,40 @@
+
 export default {
     name: 'Home',
+    setup() {
+        const title = Vue.ref('Home page')
+        const bingPhotos = Vue.ref([])
 
-    data() {
-        return {
-            title: 'Home page',
-            bingPhotos: []
-        };
-    },
+        const saveToLocal = (bingPhotos) => {
+            localStorage.setItem("bingphotos", JSON.stringify(bingPhotos))
+        }
 
-    methods: {
-        getBingWallpapers() {
+        const getBingWallpapers = () => {
             if(navigator.onLine) {
                 axios.get('https://api45gabs.azurewebsites.net/api/sample/bingphotos').then((response) => {
-                    this.bingPhotos = response.data
-                    this.saveToLocal(this.bingPhotos)
+                    bingPhotos.value = response.data
+                    saveToLocal(bingPhotos.value)
                 })
             } else {
                 let photos = JSON.parse(localStorage.getItem("bingphotos"))
                     if(photos) {
-                        this.bingPhotos = photos
+                        bingPhotos.value = photos
                     } else {
                         axios.get('data/bingPhotos.json').then((response) => {
-                            this.bingPhotos = response.data
-                            this.saveToLocal(this.bingPhotos)
+                            bingPhotos.value = response.data
+                            saveToLocal(bingPhotos.value)
                         }).catch((err) => {
                             console.log("Bing photos unavailable.")
                         })
                     }
             }
-
-
-        },
-        saveToLocal(bingPhotos) {
-            localStorage.setItem("bingphotos", JSON.stringify(bingPhotos))
         }
+
+        Vue.onMounted(getBingWallpapers)
+
+        return {title, bingPhotos}
     },
 
-    mounted() {
-        this.getBingWallpapers();
-    },
 
     template: /*html*/ `
 
