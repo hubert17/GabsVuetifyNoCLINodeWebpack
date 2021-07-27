@@ -1,7 +1,7 @@
 import store from './store.js'
 import Layout from './components/Layout.vue.js'
 import Login from './components/Login.vue.js'
-
+const {onMounted, computed} = Vue
 
 export default {
   name: 'App',
@@ -9,8 +9,7 @@ export default {
   components: { Layout, Login },
 
   setup() {
-
-    Vue.onMounted(() => {
+    onMounted(() => {
       // Hides the scrollbar
       let elHtml = document.getElementsByTagName('html')[0]
       elHtml.style.overflowY = 'hidden' // 'auto' //
@@ -23,8 +22,8 @@ export default {
       //this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
     })
 
-    const authorized = Vue.computed(() => store.getters.user != null)
-    const appConfig = Vue.computed(() => store.getters.appConfig)
+    const authorized = computed(() => store.getters.user != null)
+    const appConfig = computed(() => store.getters.appConfig)
 
     return {authorized, appConfig}
   },

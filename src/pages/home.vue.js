@@ -1,9 +1,10 @@
+const {ref, onMounted} = Vue
 
 export default {
     name: 'Home',
     setup() {
-        const title = Vue.ref('Home page')
-        const bingPhotos = Vue.ref([])
+        const title = ref('Home page')
+        const bingPhotos = ref([])
 
         const saveToLocal = (bingPhotos) => {
             localStorage.setItem("bingphotos", JSON.stringify(bingPhotos))
@@ -30,7 +31,7 @@ export default {
             }
         }
 
-        Vue.onMounted(getBingWallpapers)
+        onMounted(getBingWallpapers)
 
         return {title, bingPhotos}
     },
