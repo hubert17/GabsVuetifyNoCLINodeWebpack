@@ -1,8 +1,8 @@
 import store from '../store.js'
-import GoogleSignInButton from  '../mixins/google-signin-button.js'
+import GoogleSignInButton from  '../plugins/google-signin-button.js'
 import VueRecaptcha from 'https://cdn.jsdelivr.net/npm/vue-recaptcha@1.3.0/dist/vue-recaptcha.es.js'; // https://www.google.com/recaptcha/admin/create
 
-import { css } from 'https://cdn.jsdelivr.net/npm/goober@2.0.33/dist/goober.modern.js';
+import css from '../plugins/goober.js';
 const styles = css /*css*/ `
 
 .v-messages__message {
@@ -110,6 +110,9 @@ export default {
       appConfig() {
         return store.getters.appConfig;
       },
+      themeColor() {
+        return !this.$vuetify.theme.dark ? store.getters.appConfig.themeColor : '';
+      },
       currentTitle() {
           switch (this.step) {
               case 1: return 'Login'
@@ -128,10 +131,10 @@ export default {
             <v-col sm="4" class="text-xs-center">
               <v-card class="elevation-12">
                     <v-overlay :value="loading && step !== 1" absolute> <v-progress-circular indeterminate size="64" ></v-progress-circular> </v-overlay>
-                    <v-toolbar dark :color="appConfig.themeColor">
+                    <v-toolbar dark :color="themeColor">
                         <v-toolbar-title>{{ currentTitle }}</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-avatar v-if="step !== 1" :color="!$vuetify.theme.dark ? appConfig.themeColor + ' lighten-2' : ' grey darken-3'" class="subheading" size="24" v-text="step-1" ></v-avatar>
+                        <v-avatar v-if="step !== 1" :color="!$vuetify.theme.dark ? themeColor + ' lighten-2' : ' grey darken-3'" class="subheading" size="24" v-text="step-1" ></v-avatar>
                         <v-tooltip left v-if="step === 1">
                             <template v-slot:activator="{ on }">
                             <v-btn v-on="on" icon dark @click="">
@@ -148,9 +151,9 @@ export default {
                             <v-form @keyup.enter.native="getToken">
                                 <v-text-field v-model="login.username" prepend-icon="person" label="Username" ref="username"></v-text-field>
                                 <v-text-field type="password" v-model="login.password" prepend-icon="lock" label="Password" ref="password"></v-text-field>
-                                <v-btn :color="appConfig.themeColor + ' white--text'" :loading="loading" block="block" @click.prevent="getToken" type="button" :disabled="loading">Sign in</v-btn>
+                                <v-btn :color="themeColor + ' white--text'" :loading="loading" block="block" @click.prevent="getToken" type="button" :disabled="loading">Sign in</v-btn>
                                 <v-spacer class="py-1"></v-spacer>
-                                <v-btn :color="appConfig.themeColor" outlined block="block" @click.prevent="Object.assign(regEmpty,reg);step=2" type="button" :disabled="loading">Create New Account</v-btn>
+                                <v-btn :color="themeColor" outlined block="block" @click.prevent="Object.assign(regEmpty,reg);step=2" type="button" :disabled="loading">Create New Account</v-btn>
                                 <v-spacer class="py-1"></v-spacer>
                                 <v-btn v-if="appConfig.clientId" v-google-signin-button="appConfig.clientId" color="primary" outlined large block="block" type="button" style="text-transform:none;letter-spacing:0em;font-weight:400;font-size:1.2em;">
                                     <!-- <v-icon right dark > mdi-google </v-icon> 4285f4 -->

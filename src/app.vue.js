@@ -72,6 +72,7 @@ export default {
   components: { SideInfoPanel },
 
   template: /*html*/ `
+
 <div>
     <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" :class="themeColor + ' lighten-1'">
 
@@ -185,7 +186,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-avatar color="red" :ripple="{ class: 'red--text' }" v-on="on" slot="activator" class="mr-2" size="36"  >
+                  <v-avatar color="red" :ripple="{ center: true }" v-on="on" slot="activator" class="mr-2" size="36"  >
                     <img v-if="user && user.profilePic" :src="appConfig.apiBaseUrl + user.profilePic" />
                     <span class="white--text text-h6">{{ user.username.substring(0,2).toUpperCase() }}</span>
                   </v-avatar>

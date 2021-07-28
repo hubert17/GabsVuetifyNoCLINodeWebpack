@@ -6,14 +6,14 @@ const store = new Vuex.Store({
   state: {
     appConfig: {
         name: "Hello Vue World!",
+        themeColor: "blue-grey", // https://vuetifyjs.com/en/styles/colors/#material-colors
         baseUrl: "",
         apiBaseUrl: "https://api45gabs.azurewebsites.net",
         imgBaseUrl: "",
         storageName: 'hellovuegabs',
         clientId: '951799207669-5nv7cv480db7drqavq7irtcqkcna6flh.apps.googleusercontent.com', // https://developers.google.com/identity/sign-in/web/sign-in
         newsApiKey: "", // https://newsapi.org/register
-        recaptchaKey: "6LcpHYQbAAAAAKcuAGS-Q_hlaVFAjHAkyQIUycIw",
-        themeColor: 'blue-grey'
+        recaptchaKey: "6LcpHYQbAAAAAKcuAGS-Q_hlaVFAjHAkyQIUycIw"
     },
     authHeader: {
       headers: {

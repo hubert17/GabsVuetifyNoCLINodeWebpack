@@ -1,5 +1,5 @@
 import store from '../store.js'
-import { css } from 'https://cdn.jsdelivr.net/npm/goober@2.0.33/dist/goober.modern.js';
+import css from '../plugins/goober.js';
 
 const styles = css /*css*/ `
     .bgcolor {

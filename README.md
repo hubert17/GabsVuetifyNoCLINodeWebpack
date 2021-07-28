@@ -1,4 +1,3 @@
-
 # GabsVuetifyNoCLINodeWebpack
 
 **Vue SPA without CLI, Node and Webpack**
@@ -42,12 +41,13 @@ However, for production, I recommend to use Vite, a build tool that aims to prov
 1.  Create `src` folder.
 2.  Move the following to `src` folder:
 
-       >     components
-       >     pages
-       >     app.js
-       >     main.js
-       >     router.js
-       >     store.js
+    >     components
+    >     pages
+    >     plugins
+    >     app.vue.js
+    >     main.js
+    >     router.js
+    >     store.js
 
 3.  Update index.html script src. Notice the added preceding slash. You may now remove those `modulepreload` as you no longer need it. Use the minified version of CDN packages by simply inserting `.min` ex: `vue.min.js`.
 
