@@ -1,6 +1,6 @@
 import router from './router.js'
 import store from './store.js'
-import SideInfoPanel from './components/SideInfoPanel.js'
+import SideInfoPanel from './components/SideInfoPanel.vue.js'
 
 export default {
   name: 'App',
@@ -67,13 +67,13 @@ export default {
 
   template: /*html*/ `
 <div>
-    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
+    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" :class="appConfig.themeColor + ' lighten-1'">
 
-    <v-list nav dark class="blue-grey lighten-1">
+    <v-list nav>
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
 
       <v-list-item-group>
-        <v-list-item v-for="(menu, i) in routes"  :key="i" :to="menu.path" active-class="blue-grey darken-0" >
+        <v-list-item v-for="(menu, i) in routes"  :key="i" :to="menu.path" >
           <v-list-item-icon>
             <v-icon v-text="menu.icon"></v-icon>
           </v-list-item-icon>
@@ -98,7 +98,7 @@ export default {
       </v-list-item-group>
 
       <!-- Mobile only Menu items  -->
-      <v-list-item active-class="blue-grey darken-0" class="hidden-sm-and-up">
+      <v-list-item class="hidden-sm-and-up">
             <v-list-item-icon>
               <v-icon>forum</v-icon>
             </v-list-item-icon>
@@ -106,7 +106,7 @@ export default {
               <v-list-item-title>Customer Service</v-list-item-title>
             </v-list-item-content>
       </v-list-item>
-      <v-list-item active-class="blue-grey darken-0"  class="hidden-sm-and-up">
+      <v-list-item class="hidden-sm-and-up">
             <v-list-item-icon>
               <v-icon>how_to_vote</v-icon>
             </v-list-item-icon>
@@ -124,7 +124,7 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="!$vuetify.theme.dark ? 'blue-grey' : ''" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="appConfig.themeColor" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>

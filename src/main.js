@@ -1,7 +1,7 @@
 import router from './router.js'
 import store from './store.js'
-import AppMain from './app.js'
-import Login from './components/Login.js'
+import AppMain from './app.vue.js'
+import Login from './components/Login.vue.js'
 
 Vue.use(Vuetify);
 
@@ -21,6 +21,7 @@ const vueApp = new Vue({
     }
 
     this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
+    if(this.$vuetify.theme.dark) store.commit('setThemeColor', '');
   },
   computed: {
     authorized() {

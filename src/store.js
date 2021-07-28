@@ -12,7 +12,8 @@ const store = new Vuex.Store({
         storageName: 'hellovuegabs',
         clientId: '951799207669-5nv7cv480db7drqavq7irtcqkcna6flh.apps.googleusercontent.com', // https://developers.google.com/identity/sign-in/web/sign-in
         newsApiKey: "", // https://newsapi.org/register
-        recaptchaKey: "6LcpHYQbAAAAAKcuAGS-Q_hlaVFAjHAkyQIUycIw"
+        recaptchaKey: "6LcpHYQbAAAAAKcuAGS-Q_hlaVFAjHAkyQIUycIw",
+        themeColor: 'blue-grey '
     },
     authHeader: {
       headers: {
@@ -56,6 +57,9 @@ const store = new Vuex.Store({
         console.log('User has logged out.')
       }
     },
+    setThemeColor(state, val) {
+      state.appConfig.themeColor = val;
+    }
   },
   actions: {
 

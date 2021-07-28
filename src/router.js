@@ -1,7 +1,7 @@
-import homepage from './pages/home.js'
-import settings from './pages/settings.js'
-import help from './pages/help.js'
-import news from './pages/news.js'
+import homepage from './pages/home.vue.js'
+import settings from './pages/settings.vue.js'
+import help from './pages/help.vue.js'
+import news from './pages/news.vue.js'
 
 Vue.use(VueRouter);
 
