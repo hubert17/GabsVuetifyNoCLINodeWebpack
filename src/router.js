@@ -1,7 +1,7 @@
-import homepage from './pages/home.js'
-import settings from './pages/settings.js'
-import help from './pages/help.js'
-import news from './pages/news.js'
+import homepage from './pages/home.vue.js'
+import settings from './pages/settings.vue.js'
+import help from './pages/help.vue.js'
+import news from './pages/news.vue.js'
 
 Vue.use(VueRouter);
 
@@ -14,18 +14,8 @@ const routes = [
 
 const router = new VueRouter({
     base: window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")+1),
-    mode: 'history', // real path
+    // mode: 'history',
     routes, // short for `routes: routes`
   });
-
-//  comment out these callback if you want to use `prompt`
-// router.onReady(async () => {
-//   try {
-//     const { registerSW } = await import("virtual:pwa-register")
-//     registerSW({ immediate: true })
-//   } catch (err) {
-//     console.log(JSON.stringify(err))
-//   }
-// })
 
   export default router;

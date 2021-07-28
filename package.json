@@ -1,17 +1,12 @@
 {
     "version": "0.0.0",
     "scripts": {
-        "start": "npm run run-build && npm run serve",
-        "dev": "cross-env DEBUG=vite-plugin-pwa:* vite",
+        "dev": "vite",
         "build": "vite build",
-        "buildpwa": "cross-env DEBUG=vite-plugin-pwa:* vite build",
-        "run-build": "cross-env DEBUG=vite-plugin-pwa:* BASE_URL=/ SOURCE_MAP=true vite build",
-        "serve": "serve dist"
+        "serve": "vite preview"
     },
     "devDependencies": {
         "vite": "^2.3.8",
-        "vite-plugin-pwa": "^0.8.1",
-        "vite-plugin-vue2": "^1.7.2",
-        "vue-template-compiler": "^2.6.14"
+        "vite-plugin-vue2": "^1.7.2"
     }
 }

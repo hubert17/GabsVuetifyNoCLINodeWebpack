@@ -1,9 +1,10 @@
 import router from './router.js'
 import store from './store.js'
-import SideInfoPanel from './components/SideInfoPanel.js'
+import SideInfoPanel from './components/SideInfoPanel.vue.js'
 
 export default {
   name: 'App',
+
   data: () => ({
     isInstalled: false,
     appDrawer: true,
@@ -14,13 +15,15 @@ export default {
       { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
     ]
   }),
+
   watch: {
     '$route' (to, from) {
       this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
+
   methods: {
-    clickToggleDrawer: function () {
+    clickToggleDrawer() {
       if(this.showSideInfo) {
         this.$root.$emit("appDrawer", true);
       } else {
@@ -35,20 +38,8 @@ export default {
       localStorage.removeItem(this.appConfig.storageName)
       router.push({ path: "/" }).catch(() => {});
     },
-    install() {
-      this.$root.$emit("appInstall")
-    },
-    getPWADisplayMode() {
-      let display = 'browser';
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-      if (document.referrer.startsWith('android-app://')) {
-        display = 'twa';
-      } else if (navigator.standalone || isStandalone) {
-        display = 'standalone';
-      }
-      return display;
-    }
   },
+
   mounted() {
     if (this.$vuetify.breakpoint.mdAndUp) {
       this.appDrawer = true
@@ -56,11 +47,8 @@ export default {
     this.$root.$on("appDrawer", (val, by) => {
       this.appDrawer = val
     })
-    this.$root.$on("isInstalled", () => {
-      this.isInstalled = localStorage.getItem('pwa_' + window.location.hostname) || this.getPWADisplayMode() !== "browser"
-    })
-    this.$root.$emit("isInstalled")
   },
+
   computed: {
     routes() {
       return this.$router.options.routes;
@@ -74,16 +62,18 @@ export default {
       return u
     }
   },
+
   components: { SideInfoPanel },
+
   template: /*html*/ `
 <div>
-    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" class="blue-grey lighten-1">
+    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" :class="appConfig.themeColor + ' lighten-1'">
 
-    <v-list nav dark class="blue-grey lighten-1">
+    <v-list nav>
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
 
       <v-list-item-group>
-        <v-list-item v-for="(menu, i) in routes"  :key="i" :to="menu.path" active-class="blue-grey darken-0" >
+        <v-list-item v-for="(menu, i) in routes"  :key="i" :to="menu.path" >
           <v-list-item-icon>
             <v-icon v-text="menu.icon"></v-icon>
           </v-list-item-icon>
@@ -108,7 +98,7 @@ export default {
       </v-list-item-group>
 
       <!-- Mobile only Menu items  -->
-      <v-list-item active-class="blue-grey darken-0" class="hidden-sm-and-up">
+      <v-list-item class="hidden-sm-and-up">
             <v-list-item-icon>
               <v-icon>forum</v-icon>
             </v-list-item-icon>
@@ -116,7 +106,7 @@ export default {
               <v-list-item-title>Customer Service</v-list-item-title>
             </v-list-item-content>
       </v-list-item>
-      <v-list-item active-class="blue-grey darken-0"  class="hidden-sm-and-up">
+      <v-list-item class="hidden-sm-and-up">
             <v-list-item-icon>
               <v-icon>how_to_vote</v-icon>
             </v-list-item-icon>
@@ -134,22 +124,12 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="!$vuetify.theme.dark ? 'blue-grey' : ''" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="appConfig.themeColor" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
 
         <v-spacer></v-spacer>
-
-
-        <v-tooltip bottom>
-            <template v-slot:activator="{ on }" v-if="!isInstalled">
-            <v-btn v-on="on" icon @click="install()">
-              <v-icon>download_for_offline</v-icon>
-            </v-btn>
-            </template>
-            <span>Get our free app. It won't take up space on your phone and also works offline!</span>
-          </v-tooltip>
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -171,16 +151,12 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small" class="hidden-xs-only">{{user.username}}</span>
+                  <v-btn text v-on="on" slot="activator" small="small" class="hidden-xs-only">{{user.googleInfo ? user.googleInfo.firstName : user.username}}</span>
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-btn>
                 </template>
 
                 <v-list >
-                  <v-list-item @click="install()" v-if="!isInstalled">
-                      <v-icon class="mr-2">download_for_offline</v-icon>
-                      <v-list-item-title>Install App</v-list-item-title>
-                  </v-list-item>
                   <v-list-item @click="gotoRoute('/settings')">
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
