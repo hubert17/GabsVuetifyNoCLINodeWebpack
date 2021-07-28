@@ -2,6 +2,7 @@ import router from './router.js'
 import store from './store.js'
 import AppMain from './app.vue.js'
 import Login from './components/Login.vue.js'
+import colors from 'https://cdn.jsdelivr.net/npm/vuetify@2.5.7/lib/util/colors.js'
 
 Vue.use(Vuetify);
 
@@ -10,6 +11,13 @@ const vueApp = new Vue({
   vuetify: new Vuetify(),
   router,
   components: { 'app-main' : AppMain, Login },
+  created() {
+    this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
+    if(!this.$vuetify.theme.dark) {
+      let themeColor = store.getters.appConfig.themeColor.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+      document.querySelector('meta[name="theme-color"]').setAttribute("content", colors[themeColor].base);
+    }
+  },
   mounted() {
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
@@ -20,8 +28,6 @@ const vueApp = new Vue({
       if(user) store.commit("setUser", JSON.parse(user), true);
     }
 
-    this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
-    if(this.$vuetify.theme.dark) store.commit('setThemeColor', '');
   },
   computed: {
     authorized() {

@@ -20,10 +20,10 @@ export default {
 
     computed: {
       themeColor() {
-        return store.getters.appConfig.themeColor
+        return !this.$vuetify.theme.dark ? store.getters.appConfig.themeColor : '';
       },
       bgcolor() {
-        return store.getters.appConfig.themeColor.length > 2 ? 'bgcolor ' : ''
+        return !this.$vuetify.theme.dark ? 'bgcolor ' : ''
       }
     },
 
