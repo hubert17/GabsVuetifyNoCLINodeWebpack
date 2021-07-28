@@ -30,6 +30,9 @@ export default {
         this.$root.$emit("appDrawer", !this.appDrawer);
       }
     },
+    toggleDarkTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
     gotoRoute(routeName) {
       router.push({ path: routeName }).catch(() => {});
     },
@@ -56,6 +59,9 @@ export default {
     appConfig() {
       return store.getters.appConfig;
     },
+    themeColor() {
+      return !this.$vuetify.theme.dark ? store.getters.appConfig.themeColor : '';
+    },
     user() {
       let u = store.getters.user
       if (!u || !u.username) u = { username: "offline user" }
@@ -67,7 +73,7 @@ export default {
 
   template: /*html*/ `
 <div>
-    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" :class="appConfig.themeColor + ' lighten-1'">
+    <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" :class="themeColor + ' lighten-1'">
 
     <v-list nav>
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
@@ -124,7 +130,7 @@ export default {
 
   </v-navigation-drawer>
 
-  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="appConfig.themeColor" dark>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.smAndUp" app :color="themeColor" dark>
         <v-app-bar-nav-icon @click.stop="clickToggleDrawer"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{appConfig.name}}</v-toolbar-title>
@@ -147,6 +153,15 @@ export default {
               </v-btn>
             </template>
             <span>Send Suggesstions</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon class="hidden-xs-only" @click="toggleDarkTheme">
+                <v-icon>{{ $vuetify.theme.dark ? 'wb_sunny' : 'brightness_4' }}</v-icon>
+              </v-btn>
+            </template>
+            <span>Dark Mode</span>
           </v-tooltip>
 
             <v-menu left bottom>
@@ -177,6 +192,10 @@ export default {
                 </template>
 
                 <v-list  class="hidden-sm-and-up">
+                  <v-list-item @click="toggleDarkTheme">
+                      <v-icon class="mr-2">{{ $vuetify.theme.dark ? 'wb_sunny' : 'brightness_4' }}</v-icon>
+                    <v-list-item-title>Dark Mode</v-list-item-title>
+                  </v-list-item>
                   <v-list-item @click="() => {gotoRoute('/settings')}">
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
