@@ -35,7 +35,7 @@ export default {
     },
     gotoRoute(routeName) {
       if(this.$router.currentRoute.path === routeName) return
-      router.push({ path: routeName }).catch(() => {});
+      router.push({ path: routeName })
     },
     logout() {
       store.commit("setUser", null);
