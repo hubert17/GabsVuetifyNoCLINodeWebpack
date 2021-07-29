@@ -13,7 +13,6 @@ const vueApp = new Vue({
   components: { 'app-main' : AppMain, Login },
   created() {
     this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
-    console.log(this.$vuetify.theme)
     if(!this.$vuetify.theme.dark) {
       let themeColor = store.getters.appConfig.themeColor.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
       document.querySelector('meta[name="theme-color"]').setAttribute("content", colors[themeColor].base);
@@ -23,6 +22,7 @@ const vueApp = new Vue({
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
     elHtml.style.overflowY = 'hidden' // 'auto' //
+
     if(this.$vuetify.theme.dark) elHtml.style.backgroundColor = "#121212"
 
     if (!navigator.onLine) {
