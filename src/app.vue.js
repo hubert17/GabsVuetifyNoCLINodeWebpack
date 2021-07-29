@@ -39,7 +39,9 @@ export default {
     logout() {
       store.commit("setUser", null);
       localStorage.removeItem(this.appConfig.storageName)
-      router.push({ path: "/" }).catch(() => {});
+      if(this.$router.currentRoute.path !== this.$router.options.base) {
+        router.push({ path: "/" })
+      }
     },
   },
 
@@ -76,7 +78,7 @@ export default {
 <div>
     <v-navigation-drawer v-model="appDrawer" :clipped="$vuetify.breakpoint.smAndUp" app dark :width="$vuetify.breakpoint.xsOnly ? 270 : 250" :class="themeColor + ' lighten-1'">
 
-    <v-list nav>
+    <v-list nav dark>
       <v-subheader class="hidden-sm-and-up">{{appConfig.name}}</v-subheader>
 
       <v-list-item-group>
@@ -91,11 +93,11 @@ export default {
 
         <v-list-group prepend-icon="local_library" no-action>
           <template v-slot:activator>
-            <v-list-item-content>
+            <v-list-item-content style="color:#fff">
               <v-list-item-title>Learn</v-list-item-title>
             </v-list-item-content>
           </template>
-          <v-list-item v-for="menu in learnings" :key="menu.title" :href="menu.link" target="_blank" >
+          <v-list-item v-for="menu in learnings" :key="menu.title" :href="menu.link" target="_blank" style="color:#fff">
             <v-list-item-content>
               <v-list-item-title v-text="menu.title"></v-list-item-title>
             </v-list-item-content>
