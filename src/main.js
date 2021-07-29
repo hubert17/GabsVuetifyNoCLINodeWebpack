@@ -6,6 +6,10 @@ import colors from 'https://cdn.jsdelivr.net/npm/vuetify@2.5.7/lib/util/colors.j
 
 Vue.use(Vuetify);
 
+Vue.use(VueGtag, {
+  config: { id: "G-KLY8BKB9SL" }
+}, router);
+
 const vueApp = new Vue({
   el: "#app",
   vuetify: new Vuetify(),
