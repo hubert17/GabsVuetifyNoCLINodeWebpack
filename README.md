@@ -90,7 +90,7 @@ Please note that these changes does not affect our primary goal of developing Vu
 
 ## GitHub Actions build support
 
-Even without locally installing NPM, you can still create a production build by simply pushing your code to the master branch of the Github repo. Github Actions will take care of the build and deployment processes. Check out the yml script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
+Even without locally installing NPM, you can still create production build by simply pushing your code to the master branch of the Github repo. Github Actions will take care of the build and deployment processes. Check out the yml script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
 
 ## Contributor
 
