@@ -34,14 +34,14 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
     gotoRoute(routeName) {
+      if(this.$router.currentRoute.path === routeName) return
       router.push({ path: routeName }).catch(() => {});
     },
     logout() {
       store.commit("setUser", null);
       localStorage.removeItem(this.appConfig.storageName)
-      if(this.$router.currentRoute.path !== this.$router.options.base) {
-        router.push({ path: "/" })
-      }
+      if(this.$router.currentRoute.path === this.$router.options.base) return
+      router.push({ path: "/" })
     },
   },
 
