@@ -16,15 +16,16 @@ export default {
 
   methods: {
     clickToggleDrawer() {
-      if(this.showSideInfo) {
-        this.$root.$emit("appDrawer", true);
-      } else {
-        this.$root.$emit("appDrawer", !this.appDrawer);
-      }
+      this.$root.$emit("appDrawer", !this.appDrawer);
     },
     gotoRoute(routeName) {
       if(this.$router.currentRoute.path === routeName) return
       router.push({ path: routeName })
+    },
+    logout() {
+      this.$root.$emit("user", null);
+      if(this.$router.currentRoute.path === this.$router.options.base) return
+      router.push({ path: "/" })
     }
   },
 
@@ -32,6 +33,7 @@ export default {
     if (this.$vuetify.breakpoint.mdAndUp) {
       this.appDrawer = true
     }
+
     this.$root.$on("appDrawer", (val, by) => {
       this.appDrawer = val
     })
@@ -135,6 +137,10 @@ export default {
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
                   </v-list-item>
+                  <v-list-item @click.prevent="logout">
+                      <v-icon class="mr-2">exit_to_app</v-icon>
+                    <v-list-item-title>Logout</v-list-item-title>
+                  </v-list-item>
                 </v-list>
               </v-menu>
 
@@ -149,6 +155,10 @@ export default {
                   <v-list-item @click="() => {gotoRoute('/settings')}">
                       <v-icon class="mr-2">settings</v-icon>
                     <v-list-item-title>Settings</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item @click.prevent="logout">
+                      <v-icon class="mr-2">exit_to_app</v-icon>
+                    <v-list-item-title>Logout</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
