@@ -1,14 +1,14 @@
 # GabsVuetifyNoCLINodeWebpack
 
-**Vue SPA without CLI, Node and Webpack**
+**Vue SPA without CLI, Node, and Webpack**
 
-This is a single-page application that uses Vue and Vue Router with a beautiful Material UI from Vuetify. It uses ES6 imports to render components and templates. No Node is required. Just git clone and serve statically.
+This is a single-page application that utilizes Vue and Vue Router with a beautiful Material UI from Vuetify. It uses ES6 imports to render components and templates. No Node is required. Simply clone the repository and serve it statically.
 
-You can also download this template in order to create a new single-page application that you can build upon. You can write code in any environment that has a static web-server. There are [virtually] no local dependencies. It uses CDN-hosted libraries.
+You can also download this template to create a new single-page application that you can build upon. You can write code in any environment that has a static web server. There are virtually no local dependencies. It uses CDN-hosted libraries.
 
-**Demo**: https://hubert17.github.io/GabsVuetifyNoCLINodeWebpack
+**Demo**: [https://hubert17.github.io/GabsVuetifyNoCLINodeWebpack](https://hubert17.github.io/GabsVuetifyNoCLINodeWebpack)
 
-## Install these [VSCode Extensions](https://marketplace.visualstudio.com/vscode) for best experience:
+## Install these [VSCode Extensions](https://marketplace.visualstudio.com/vscode) for the best experience:
 
 - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 - [Template Literal Editor](https://marketplace.visualstudio.com/items?itemName=plievone.vscode-template-literal-editor)
@@ -16,82 +16,90 @@ You can also download this template in order to create a new single-page applica
 - [Trailing Spaces](https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces)
 - [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)
 
-## Why I try to avoid using CLI, npm, webpack and other build process?
+## Why do I try to avoid using CLI, npm, Webpack, and other build processes?
 
 - It reduces the learning curve required to start using Vue.js.
-- Because JavaScript lacks a standard library, a project with npm usually has a lot of dependencies. This increases the project's size and complexity. See this [article](https://hackernoon.com/whats-really-wrong-with-node-modules-and-why-this-is-your-fault-8ac9fa893823) for more info.
-- But if we do not use npm, how do we install additional libraries? They can simply be downloaded from a CDN and imported using HTML `<script>` tags. For example, in this project I used Material Design Webfont and Vuetify with this method. This can be an issue if there is alot of dependencies as importing each library separately with `<script>` tags is slow to load and creates a lot of variables in the global scope. Also, each dependency has to be imported in the correct order. (Read Waterfall-loading below)
-- Babel is useful for converting ES6 JavaScript into backwards compatible code. But, in my case this is not needed as the web browsers of my clients (most modern browsers) all support ES6.
-- Webpack can potentially require a lot of configuration and is not beginner friendly.
-- Read more [here](https://github.com/charlesfranciscodev/vuejs-playground) and [here](https://github.com/arswaw/VueSpaNONODE).
+- JavaScript lacks a standard library, so a project with npm usually has a lot of dependencies, increasing the project's size and complexity. For more information, refer to this [article](https://hackernoon.com/whats-really-wrong-with-node-modules-and-why-this-is-your-fault-8ac9fa893823).
+- However, if we don't use npm, we can still install additional libraries by downloading them from a CDN and importing them using HTML `<script>` tags. In this project, I used Material Design Webfont and Vuetify with this method. Importing each library separately with `<script>` tags can be slow and create many variables in the global scope, especially when there are numerous dependencies. Additionally, each dependency must be imported in the correct order (read Waterfall-loading below).
+- Babel is useful for converting ES6 JavaScript into backward-compatible code, but in my case, it's unnecessary since the web browsers of my clients (most modern browsers) already support ES6.
+- Webpack can potentially require extensive configuration and is not beginner-friendly. To learn more, visit [here](https://github.com/charlesfranciscodev/vuejs-playground) and [here](https://github.com/arswaw/VueSpaNONODE).
 
-## What about the Component-based CSS?
+## What about Component-based CSS?
 
-[goober](https://github.com/cristianbote/goober), a less than 1KB css-in-js solution, solves the problem.
+The problem is solved using [goober](https://github.com/cristianbote/goober), a CSS-in-JS solution that is less than 1KB in size.
 
 ## Waterfall-loading issue
 
-One problem with using JavaScript Modules without a bundler is waterfall-loading. Main.js imports app.js and app.js imports BaseButton.js. So the browser needs to load the files in this order before it can mount our little Vue application. But we can speed this up by using [modulepreload](https://developers.google.com/web/updates/2017/12/) links. The preload links tell the browser to load all necessary files, which prevents waterfall-loading. Read more [here](https://markus.oberlehner.net/blog/goodbye-webpack-building-vue-applications-without-webpack/).
+One problem with using JavaScript Modules without a bundler is waterfall-loading. `Main.js` imports `app.js`, and `app.js` imports `BaseButton.js`. As a result, the browser needs to load the files in this order before it can mount our Vue application. However, we can speed up this process by using [modulepreload](https://developers.google.com/web/updates/
+
+2017/12/) links. The preload links instruct the browser to load all necessary files, preventing waterfall-loading. To learn more, read [here](https://markus.oberlehner.net/blog/goodbye-webpack-building-vue-applications-without-webpack/).
 
 ## Production Build with Vite
 
-The aim of this project is to quickly develop single page app without any compilation or build step.
-However, for production, I recommend to use Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. Reconfigure the project by following these steps:
+The aim of this project is to quickly develop a single-page app without any compilation or build steps. However, for production, I recommend using Vite, a build tool that aims to provide a faster and leaner development experience for modern web projects. It has a build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production. To reconfigure the project, follow these steps:
 
-1.  Create `src` folder.
-2.  Move the following to `src` folder:
+1. Create the `src` folder.
+2. Move the following files to the `src` folder:
 
-    >     components
-    >     pages
-    >     plugins
-    >     app.vue.js
-    >     main.js
-    >     router.js
-    >     store.js
+    - components
+    - pages
+    - plugins
+    - app.vue.js
+    - main.js
+    - router.js
+    - store.js
 
-3.  Update index.html script src. Notice the added preceding slash. You may now remove those `modulepreload` as you no longer need it. Use the minified version of CDN packages by simply inserting `.min` ex: `vue.min.js`.
+3. Update the script src in `index.html`. Add a preceding slash. You can now remove the `modulepreload` since they are no longer needed. Use the minified version of CDN packages by inserting `.min` before the file extension, for example, `vue.min.js`.
 
-        <script type="module" src="/src/main.js"></script>
+    ```html
+    <script type="module" src="/src/main.js"></script>
+    ```
 
-4.  Create these files:
+4. Create the following files:
 
-    > **package.json**
+    **package.json**
 
-        {
-            "version": "0.0.0",
-            "scripts": {
-        	    "dev": "vite",
-        	    "build": "vite build",
-        	    "serve": "vite preview"
-            },
-            "devDependencies": {
-        	    "vite": "^2.3.7"
-            }
+    ```json
+    {
+        "version": "0.0.0",
+        "scripts": {
+            "dev": "vite",
+            "build": "vite build",
+            "serve": "vite preview"
+        },
+        "devDependencies": {
+            "vite": "^2.3.7"
         }
+    }
+    ```
 
-    > **vite.config.js**
+    **vite.config.js**
 
-        const { createVuePlugin } = require('vite-plugin-vue2');
+    ```javascript
+    const { createVuePlugin } = require('vite-plugin-vue2');
 
-        module.exports = {
-        	plugins: [createVuePlugin()],
-        	base:  ''
-        };
+    module.exports = {
+        plugins: [createVuePlugin()],
+        base: ''
+    };
+    ```
 
-5.  Run the following command:
+5. Run the following commands:
 
-    `npm install`
+    ```
+    npm install
+    npm ci
+    npm run build
+    ```
 
-    `npm ci`
+    The building process will start, and the output will be in the `/dist` folder, which you can deploy on any static hosting site. That's it!
 
-    `npm run build` will start the building process. Output is in `/dist` folder which you can deploy in any static hosting site. That's it!
-
-Please note that these changes does not affect our primary goal of developing Vue spa without CLI, Node or Webpack. The app can still be served statically without a build process.
+Please note that these changes do not affect our primary goal of developing a Vue SPA without CLI, Node, or Webpack. The app can still be served statically without a build process.
 
 ## GitHub Actions build support
 
-Even without locally installing NPM, you can still create production build by simply pushing your code to the master branch of the Github repo. Github Actions will take care of the build and deployment processes. Check out the yml script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
+Even without locally installing NPM, you can still create a production build by simply pushing your code to the master branch of the GitHub repository. GitHub Actions will take care of the build and deployment processes. Check out the YAML script [here](https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack/blob/master/.github/workflows/publish.yml).
 
 ## Contributor
 
-1.  [Bernard Gabon](https://bernardgabon.com)
+1. [Bernard Gabon](https://bernardgabon.com)
