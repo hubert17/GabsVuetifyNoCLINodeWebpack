@@ -30,9 +30,7 @@ The problem is solved using [goober](https://github.com/cristianbote/goober), a 
 
 ## Waterfall-loading issue
 
-One problem with using JavaScript Modules without a bundler is waterfall-loading. `Main.js` imports `app.js`, and `app.js` imports `BaseButton.js`. As a result, the browser needs to load the files in this order before it can mount our Vue application. However, we can speed up this process by using [modulepreload](https://developers.google.com/web/updates/
-
-2017/12/) links. The preload links instruct the browser to load all necessary files, preventing waterfall-loading. To learn more, read [here](https://markus.oberlehner.net/blog/goodbye-webpack-building-vue-applications-without-webpack/).
+One problem with using JavaScript Modules without a bundler is waterfall-loading. `Main.js` imports `app.js`, and `app.js` imports `BaseButton.js`. As a result, the browser needs to load the files in this order before it can mount our Vue application. However, we can speed up this process by using [modulepreload](https://developers.google.com/web/updates/2017/12/) links. The preload links instruct the browser to load all necessary files, preventing waterfall-loading. To learn more, read [here](https://markus.oberlehner.net/blog/goodbye-webpack-building-vue-applications-without-webpack/).
 
 ## Production Build with Vite
 
