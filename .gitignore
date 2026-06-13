@@ -378,4 +378,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-
+# VSCode Extension Installers
+extensions/
+*.vsix

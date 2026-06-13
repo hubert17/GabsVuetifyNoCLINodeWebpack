@@ -10,21 +10,21 @@ export default {
     appDrawer: true,
     showSideInfo: true,
     learnings: [
-      { title: 'Vue', link:'https://vuejs.org/v2/guide/' },
-      { title: 'Vuetify', link:'https://vuetifyjs.com/en/introduction/why-vuetify/' },
-      { title: 'Github', link:'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
+      { title: 'Vue', link: 'https://vuejs.org/v2/guide/' },
+      { title: 'Vuetify', link: 'https://vuetifyjs.com/en/introduction/why-vuetify/' },
+      { title: 'Github', link: 'https://github.com/hubert17/GabsVuetifyNoCLINodeWebpack' },
     ]
   }),
 
   watch: {
-    '$route' (to, from) {
+    '$route'(to, from) {
       this.showSideInfo = to.path === "/" && this.$vuetify.breakpoint.smAndUp
     }
   },
 
   methods: {
     clickToggleDrawer() {
-      if(this.showSideInfo) {
+      if (this.showSideInfo) {
         this.$root.$emit("appDrawer", true);
       } else {
         this.$root.$emit("appDrawer", !this.appDrawer);
@@ -34,13 +34,13 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
     gotoRoute(routeName) {
-      if(this.$router.currentRoute.path === routeName) return
+      if (this.$router.currentRoute.path === routeName) return
       router.push({ path: routeName })
     },
     logout() {
       store.commit("setUser", null);
       localStorage.removeItem(this.appConfig.storageName)
-      if(this.$router.currentRoute.path === this.$router.options.base) return
+      if (this.$router.currentRoute.path === this.$router.options.base) return
       router.push({ path: "/" })
     },
   },
@@ -54,9 +54,13 @@ export default {
     })
   },
 
+  beforeDestroy() {
+    this.$root.$off("appDrawer");
+  },
+
   computed: {
     routes() {
-      return this.$router.options.routes;
+      return this.$router.options.routes.filter(route => route.title);
     },
     appConfig() {
       return store.getters.appConfig;
@@ -120,7 +124,7 @@ export default {
               <v-icon>how_to_vote</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Send Suggesstions</v-list-item-title>
+              <v-list-item-title>Send Suggestions</v-list-item-title>
             </v-list-item-content>
       </v-list-item>
 
@@ -155,7 +159,7 @@ export default {
                 <v-icon>mdi-vote</v-icon>
               </v-btn>
             </template>
-            <span>Send Suggesstions</span>
+            <span>Send Suggestions</span>
           </v-tooltip>
 
           <v-tooltip bottom>
@@ -169,9 +173,10 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn text v-on="on" slot="activator" small="small" class="hidden-xs-only">{{user.googleInfo ? user.googleInfo.firstName : user.username}}</span>
-                      <v-icon>keyboard_arrow_down</v-icon>
-                    </v-btn>
+                  <v-btn text v-on="on" small class="hidden-xs-only">
+                    {{user.googleInfo ? user.googleInfo.firstName : user.username}}
+                    <v-icon>keyboard_arrow_down</v-icon>
+                  </v-btn>
                 </template>
 
                 <v-list >
@@ -188,7 +193,7 @@ export default {
 
             <v-menu left bottom>
                 <template v-slot:activator="{ on }">
-                  <v-avatar color="red" :ripple="{ center: true }" v-on="on" slot="activator" class="mr-2" size="36"  >
+                  <v-avatar color="red" :ripple="{ center: true }" v-on="on" class="mr-2" size="36"  >
                     <img v-if="user && user.profilePic" :src="appConfig.apiBaseUrl + user.profilePic" />
                     <span class="white--text text-h6">{{ user.username.substring(0,2).toUpperCase() }}</span>
                   </v-avatar>

@@ -2,7 +2,7 @@ import router from './router.js'
 import store from './store.js'
 import AppMain from './app.vue.js'
 import Login from './components/Login.vue.js'
-import colors from 'https://cdn.jsdelivr.net/npm/vuetify@2.5.7/lib/util/colors.js'
+import colors from 'https://cdn.jsdelivr.net/npm/vuetify@2.x/lib/util/colors.js'
 
 Vue.use(Vuetify);
 
@@ -14,24 +14,27 @@ const vueApp = new Vue({
   el: "#app",
   vuetify: new Vuetify(),
   router,
-  components: { 'app-main' : AppMain, Login },
+  components: { 'app-main': AppMain, Login },
   created() {
     this.$vuetify.theme.dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // dark mode
-    if(!this.$vuetify.theme.dark) {
-      let themeColor = store.getters.appConfig.themeColor.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", colors[themeColor].base);
-    }
   },
   mounted() {
     // Hides the scrollbar
     let elHtml = document.getElementsByTagName('html')[0]
     elHtml.style.overflowY = 'hidden' // 'auto' //
 
-    if(this.$vuetify.theme.dark) elHtml.style.backgroundColor = "#121212"
+    this.syncTheme(this.$vuetify.theme.dark)
 
     if (!navigator.onLine) {
       let user = localStorage.getItem(this.appConfig.storageName)
-      if(user) store.commit("setUser", JSON.parse(user), true);
+      if (user) {
+        try {
+          store.commit("setUser", JSON.parse(user), true);
+        } catch (e) {
+          console.error("Failed to parse offline user session:", e);
+          localStorage.removeItem(this.appConfig.storageName);
+        }
+      }
     }
 
   },
@@ -41,6 +44,35 @@ const vueApp = new Vue({
     },
     appConfig() {
       return store.getters.appConfig;
+    },
+    isDark() {
+      return this.$vuetify.theme.dark;
+    }
+  },
+  watch: {
+    isDark(newVal) {
+      this.syncTheme(newVal);
+    }
+  },
+  methods: {
+    syncTheme(isDark) {
+      let elHtml = document.getElementsByTagName('html')[0]
+      if (isDark) {
+        elHtml.style.backgroundColor = "#121212"
+      } else {
+        elHtml.style.backgroundColor = ""
+      }
+
+      let metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      if (metaThemeColor) {
+        if (isDark) {
+          metaThemeColor.setAttribute("content", "#121212");
+        } else {
+          let themeColor = store.getters.appConfig.themeColor.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+          let colorHex = colors[themeColor] ? colors[themeColor].base : "#ffffff";
+          metaThemeColor.setAttribute("content", colorHex);
+        }
+      }
     }
   },
   template: /*html*/ `

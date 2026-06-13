@@ -1,12 +1,14 @@
 {
-    "version": "0.0.0",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "serve": "vite preview"
-    },
-    "devDependencies": {
-        "vite": "^2.3.8",
-        "vite-plugin-vue2": "^1.7.2"
-    }
+  "name": "gabsvue-no-cli",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.3.8",
+    "vite-plugin-vue2": "^1.7.2"
+  }
 }

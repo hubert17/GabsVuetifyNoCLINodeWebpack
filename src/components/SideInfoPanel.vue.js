@@ -2,65 +2,96 @@ import store from '../store.js'
 import css from '../plugins/goober.js';
 
 const styles = css /*css*/ `
-    .bgcolor {
-        background-color: #fff!important;
-        border-color: #fff!important;
-    }
+  .info-panel-card {
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 
-`
+  .theme--light.info-panel-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+    color: #2c3e50;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .theme--dark.info-panel-card {
+    background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #e0e0e0;
+  }
+
+  .info-header {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: #e65100; /* Deep orange accent */
+  }
+
+  .theme--dark .info-header {
+    color: #ffb74d; /* Bright orange for dark mode contrast */
+  }
+
+  .info-text {
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .status-chip {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    background: rgba(230, 81, 0, 0.1);
+    color: #e65100;
+    border: 1px solid rgba(230, 81, 0, 0.2);
+  }
+
+  .theme--dark .status-chip {
+    background: rgba(255, 183, 77, 0.15);
+    color: #ffb74d;
+    border-color: rgba(255, 183, 77, 0.25);
+  }
+`;
 
 export default {
-    name: 'SideInfoPanel',
-    props: ["TitleHeader","TitleText", "DetailHeader", "DetailText" , "StatusHeader" , "StatusText", "OtherHeader", "OtherText"],
-    data() {
-      return {
+  name: 'SideInfoPanel',
+  props: ["TitleHeader", "TitleText", "DetailHeader", "DetailText", "StatusHeader", "StatusText", "OtherHeader", "OtherText"],
 
-      };
-    },
-
-    computed: {
-      themeColor() {
-        return !this.$vuetify.theme.dark ? store.getters.appConfig.themeColor : '';
-      },
-      bgcolor() {
-        return !this.$vuetify.theme.dark ? 'bgcolor ' : ''
-      }
-    },
-
-    template: /*html*/ `
-
-<v-container fluid class="hidden-sm-and-down">
-      <v-row class=${styles} >
-        <v-col cols="12">
-          <v-row class="ml-5" align="end" justify="end" style="height: calc(100vh - 450px);overflow-y: hidden;" >
-            <!-- outlined tile -->
-            <div :class="bgcolor + ' ml-1 pa-0'">
-              <v-col cols="12" :class="themeColor + ' lighten-1 pr-0 mr-0'" style="height:20px;border-radius: 0px 0px 20px 0px;"> </v-col>
-              <v-col cols="12" :class="themeColor + ' lighten-1 pa-0 ma-0'" style="border-radius: 0px 0px 0px 0px;">
-                <v-row class="pa-0 ma-0">
-                  <v-col cols="12" :class="bgcolor + ' pa-0 ma-0'" style="height: 20px; border-radius: 20px 0px 0px 0px;"> </v-col>
-                </v-row>
-              </v-col>
-              <div class="pl-5 mr-8" style="min-width: 100px;">
-                <p v-if="TitleHeader" class="amber--text text--darken-4 font-weight-light pb-0 my-0">{{TitleHeader}}</p>
-                <p v-if="TitleHeader" class="title mb-2">{{TitleText}}</p>
-                <p v-if="DetailHeader" class="amber--text text--darken-4 font-weight-light py-0 my-0">{{DetailHeader}}</p>
-                <p v-if="DetailHeader" class="title mb-2">{{DetailText}}</p>
-                <p v-if="StatusHeader" class="amber--text text--darken-4 font-weight-light py-0 my-0">{{StatusHeader}}</p>
-                <p v-if="StatusHeader" class="mb-3" style="font-size:medium;font-weight: bold;letter-spacing:1px">
-                  <span style="padding-left:3px; padding-right: 3px;display:inline;-moz-box-decoration-break:clone;
-                      -webkit-box-decoration-break:clone;box-decoration-break:clone;">{{StatusText}}
-                  </span>
-                </p>
-                <p v-if="OtherHeader" class="amber--text text--darken-4 font-weight-light pb-0 my-0">{{OtherHeader}}</p>
-                <p v-if="OtherHeader" class="font-weight-light mb-2">{{OtherText}}</p>
-              </div>
-              <v-col cols="12" :class="themeColor + ' lighten-1 pr-0 mr-0'" style="height:20px;border-radius: 0px 20px 0px 0px;"> </v-col>
+  template: /*html*/ `
+      <v-container fluid class="hidden-sm-and-down pa-0 ${styles}">
+        <div :class="['info-panel-card', $vuetify.theme.dark ? 'theme--dark' : 'theme--light']">
+          <div v-if="TitleHeader" class="mb-3">
+            <p class="info-header pb-0 my-0">{{ TitleHeader }}</p>
+            <p class="info-text title mb-0">{{ TitleText }}</p>
+          </div>
+          
+          <div v-if="DetailHeader" class="mb-3">
+            <p class="info-header py-0 my-0">{{ DetailHeader }}</p>
+            <p class="info-text subtitle-1 mb-0">{{ DetailText }}</p>
+          </div>
+          
+          <div v-if="StatusHeader" class="mb-3">
+            <p class="info-header py-0 my-0">{{ StatusHeader }}</p>
+            <div class="mt-1">
+              <span class="status-chip">{{ StatusText }}</span>
             </div>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-
+          </div>
+          
+          <div v-if="OtherHeader" class="mb-0">
+            <p class="info-header pb-0 my-0">{{ OtherHeader }}</p>
+            <p class="info-text body-2 mb-0">{{ OtherText }}</p>
+          </div>
+        </div>
+      </v-container>
     `,
-  };
+};
