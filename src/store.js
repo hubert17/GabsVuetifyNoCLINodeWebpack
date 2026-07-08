@@ -10,7 +10,7 @@ const store = new Vuex.Store({
       imgBaseUrl: "",
       storageName: 'hellovuegabs',
       clientId: '951799207669-5nv7cv480db7drqavq7irtcqkcna6flh.apps.googleusercontent.com', // https://developers.google.com/identity/sign-in/web/sign-in
-      recaptchaKey: "6LcpHYQbAAAAAKcuAGS-Q_hlaVFAjHAkyQIUycIw"
+      recaptchaKey: ''
     },
     user: null,
   },
